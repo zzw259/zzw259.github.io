@@ -40,8 +40,287 @@
             padding: 20px;
         }
         
-        /* 音乐播放器样式 */
-        .music-player-container {
+        /* 背景装饰 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.08) 0%, transparent 70%);
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+        
+        /* 标题区域 */
+        .header-section {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
+        }
+        
+        .birthday-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--light-color);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .birthday-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .honoree-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--gold-color);
+            margin: 20px 0;
+            display: inline-block;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .honoree-name::before, .honoree-name::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-color);
+            font-size: 1.2rem;
+        }
+        
+        .honoree-name::before {
+            left: 0;
+        }
+        
+        .honoree-name::after {
+            right: 0;
+        }
+        
+        /* 主要内容区域 */
+        .content-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .message-card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .message-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .message-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--gold-color);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .message-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .message-content {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+        
+        .message-content p {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .message-content p::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        /* 祝福卡片区 */
+        .blessings-section {
+            margin: 60px 0;
+        }
+        
+        .blessings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .blessing-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 30px 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blessing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .blessing-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .blessing-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-5px);
+        }
+        
+        .blessing-icon {
+            font-size: 2.5rem;
+            color: var(--gold-color);
+            margin-bottom: 20px;
+        }
+        
+        .blessing-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--light-color);
+            margin-bottom: 10px;
+        }
+        
+        .blessing-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        
+        /* 签名区域 */
+        .signature-section {
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .signature-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--gold-color);
+            margin: 30px 0;
+        }
+        
+        .closing-message {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* 粒子背景 */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+        }
+        
+        /* 音乐播放器 - 修复确保可见 */
+        .music-player {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -55,24 +334,17 @@
             gap: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
             max-width: 400px;
-            animation: slideIn 0.5s ease forwards;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .music-player-container:hover {
-            border-color: rgba(212, 175, 55, 0.7);
+        .music-player:hover {
+            background: rgba(26, 26, 46, 0.98);
+            transform: translateY(-2px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.6);
         }
         
         .music-controls {
@@ -99,6 +371,11 @@
         .music-btn:hover {
             background: rgba(212, 175, 55, 0.3);
             transform: scale(1.1);
+            border-color: var(--gold-color);
+        }
+        
+        .music-btn:active {
+            transform: scale(0.95);
         }
         
         .music-info {
@@ -146,6 +423,21 @@
             cursor: pointer;
         }
         
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold-color);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .volume-icon {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        
+        /* 音乐提示 */
         .music-prompt {
             position: fixed;
             bottom: 20px;
@@ -153,18 +445,13 @@
             background: rgba(26, 26, 46, 0.95);
             border-radius: 10px;
             padding: 12px 16px;
-            display: flex;
+            display: none;
             align-items: center;
             gap: 12px;
             z-index: 999;
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .music-prompt i {
@@ -177,9 +464,122 @@
             color: var(--text-light);
         }
         
+        .music-prompt-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .music-prompt-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .float-animation {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
         /* 响应式设计 */
+        @media (max-width: 992px) {
+            .birthday-title {
+                font-size: 3rem;
+            }
+            
+            .honoree-name {
+                font-size: 2.8rem;
+            }
+            
+            .content-section {
+                flex-direction: column;
+            }
+            
+            .music-player {
+                max-width: 350px;
+                padding: 12px 15px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .music-player-container {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+            
+            .honoree-name {
+                font-size: 2.2rem;
+            }
+            
+            .message-card {
+                padding: 30px 25px;
+            }
+            
+            .blessings-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .music-player {
                 position: fixed;
                 bottom: 20px;
                 top: auto;
@@ -189,16 +589,49 @@
                 width: 90%;
                 justify-content: center;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2rem;
+            }
             
-            .music-prompt {
-                display: none;
+            .birthday-subtitle {
+                font-size: 1rem;
+                letter-spacing: 5px;
+            }
+            
+            .honoree-name {
+                font-size: 1.8rem;
+            }
+            
+            .blessings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .music-player {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            
+            .music-info {
+                max-width: 120px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 背景装饰元素 -->
+    <div class="background-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <!-- 粒子背景 -->
+    <div class="particles-container" id="particles"></div>
+    
     <!-- 音乐播放器 -->
-    <div class="music-player-container" id="music-player">
+    <div class="music-player" id="music-player">
         <div class="music-controls">
             <button class="music-btn" id="play-pause-btn">
                 <i class="fas fa-play" id="play-icon"></i>
@@ -207,152 +640,259 @@
         
         <div class="music-info">
             <div class="music-title" id="music-title">生日快乐钢琴曲</div>
-            <div class="music-artist" id="music-artist">背景音乐</div>
+            <div class="music-artist" id="music-artist">点击播放按钮开始音乐</div>
         </div>
         
         <div class="volume-control">
-            <i class="fas fa-volume-up volume-icon"></i>
+            <i class="fas fa-volume-up volume-icon" id="volume-icon"></i>
             <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume-slider">
         </div>
     </div>
     
     <!-- 音乐提示 -->
     <div class="music-prompt" id="music-prompt">
-        <i class="fas fa-music"></i>
-        <span class="music-prompt-text">点击播放按钮开始背景音乐</span>
-        <button class="music-btn" style="width:30px;height:30px;font-size:0.8rem;" id="close-prompt">×</button>
+        <i class="fas fa-info-circle" id="prompt-icon"></i>
+        <span class="music-prompt-text" id="prompt-text">音乐已准备就绪</span>
+        <button class="music-prompt-close" id="close-prompt">×</button>
     </div>
     
-    <!-- 您的生日祝福内容 -->
     <div class="container">
-        <!-- 这里放置您的生日祝福内容 -->
-        <h1 style="text-align:center;margin-top:100px;color:var(--gold-color);font-family:'Cormorant Garamond', serif;font-size:3rem;">
-            祝郑晞澜生日快乐！
-        </h1>
-        <p style="text-align:center;margin-top:30px;font-size:1.2rem;">
-            这是一个带有背景音乐的生日祝福页面
-        </p>
+        <!-- 标题区域 -->
+        <section class="header-section">
+            <div class="birthday-subtitle">CELEBRATING A SPECIAL DAY</div>
+            <h1 class="birthday-title">生日快乐</h1>
+            <div class="honoree-name float-animation">郑晞澜</div>
+            <div class="birthday-subtitle">愿这特别的一天充满喜悦与美好</div>
+        </section>
+        
+        <!-- 主要内容区域 -->
+        <section class="content-section">
+            <div class="message-card animate-on-scroll">
+                <h2 class="message-title">诚挚祝福</h2>
+                <div class="message-content">
+                    <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
+                    <p>愿你的人生如诗如画，每一个梦想都能绽放光芒，每一次努力都能收获喜悦。</p>
+                    <p>岁月悠长，愿你始终怀揣梦想，保持热爱；时光静好，愿你永远被温柔以待，幸福安康。</p>
+                    <p>新的一岁，愿你继续闪耀，成为自己想成为的人，抵达向往的远方。</p>
+                </div>
+            </div>
+            
+            <div class="message-card animate-on-scroll">
+                <h2 class="message-title">美好祈愿</h2>
+                <div class="message-content">
+                    <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
+                    <p>愿生活赠你以温柔，时光待你以宽容，未来许你以辉煌。</p>
+                    <p>在这特别的日子里，愿所有美好的事物都向你涌来，所有的期盼都能如愿以偿。</p>
+                    <p>愿你的世界永远明媚如春，愿你的人生永远绚烂如夏。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 祝福卡片区 -->
+        <section class="blessings-section animate-on-scroll">
+            <h2 class="message-title" style="text-align: center;">美好祝愿</h2>
+            <div class="blessings-grid">
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="blessing-title">健康快乐</h3>
+                    <p class="blessing-desc">身体康健，心境愉悦，生活充满阳光</p>
+                </div>
+                
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="blessing-title">梦想成真</h3>
+                    <p class="blessing-desc">所有期盼皆能实现，所有梦想皆能达成</p>
+                </div>
+                
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="blessing-title">智慧成长</h3>
+                    <p class="blessing-desc">心智日益成熟，智慧与日俱增</p>
+                </div>
+                
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3 class="blessing-title">温暖阳光</h3>
+                    <p class="blessing-desc">生活处处有温暖，人生时时见阳光</p>
+                </div>
+                
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <h3 class="blessing-title">前程似锦</h3>
+                    <p class="blessing-desc">前路光明璀璨，未来无限可期</p>
+                </div>
+                
+                <div class="blessing-card">
+                    <div class="blessing-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="blessing-title">生活如歌</h3>
+                    <p class="blessing-desc">每一天都充满旋律，每一刻都值得铭记</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 签名区域 -->
+        <section class="signature-section animate-on-scroll">
+            <div class="closing-message">
+                谨以此页表达最真挚的祝福。愿你的新一岁充满无限可能，每一天都比前一天更加精彩。
+            </div>
+            <div class="signature">祝你生日快乐</div>
+            <div class="closing-message">
+                愿时光温柔以待，愿岁月永不蹉跎<br>
+                愿所有的美好都如期而至
+            </div>
+        </section>
     </div>
-
-    <!-- 方法1：使用 Base64 编码的音乐（最可靠） -->
-    <audio id="background-music" loop preload="auto" style="display:none;">
-        <!-- 这里是一个简单的生日旋律（Base64编码的短音乐） -->
-        <!-- 实际使用中，您可以将自己的音乐文件转换为Base64编码 -->
-        <source src="data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA" type="audio/mpeg">
-    </audio>
-
-    <!-- 方法2：使用外部音乐链接（需要替换为您的音乐链接） -->
-    <audio id="external-music" loop preload="auto" style="display:none;">
-        <!-- 请将下面的链接替换为您自己的音乐文件链接 -->
+    
+    <!-- 使用可靠的外部音乐链接 -->
+    <audio id="background-music" preload="metadata" loop>
+        <!-- 使用一个可靠的公共音乐链接 -->
         <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
     </audio>
 
     <script>
         // 获取DOM元素
         const musicPlayer = document.getElementById('music-player');
         const musicPrompt = document.getElementById('music-prompt');
+        const promptText = document.getElementById('prompt-text');
+        const promptIcon = document.getElementById('prompt-icon');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const playIcon = document.getElementById('play-icon');
         const volumeSlider = document.getElementById('volume-slider');
+        const volumeIcon = document.getElementById('volume-icon');
         const closePromptBtn = document.getElementById('close-prompt');
+        const musicTitle = document.getElementById('music-title');
+        const musicArtist = document.getElementById('music-artist');
         
-        // 尝试使用多个音乐源
-        let currentAudio = null;
+        // 音频元素
+        const audio = document.getElementById('background-music');
+        
+        // 初始化变量
         let isPlaying = false;
+        let isUserInteracted = false; // 标记用户是否已经交互过
         
-        // 音乐源列表（按优先级尝试）
-        const audioSources = [
-            {
-                id: 'birthday-music',
-                title: '生日快乐钢琴曲',
-                artist: '温馨背景音乐',
-                element: document.getElementById('background-music'),
-                url: 'data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA'
-            },
-            {
-                id: 'external-music',
-                title: '生日快乐歌',
-                artist: '经典旋律',
-                element: document.getElementById('external-music'),
-                url: 'https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3'
-            }
-        ];
-        
-        // 初始化音乐
+        // 初始化音乐设置
         function initMusic() {
-            // 尝试加载第一个音乐源
-            currentAudio = audioSources[0].element;
+            // 设置初始音量
+            audio.volume = volumeSlider.value / 100;
             
-            // 设置音量
-            currentAudio.volume = volumeSlider.value / 100;
+            // 显示音乐播放器
+            musicPlayer.style.display = 'flex';
             
-            // 更新UI
-            document.getElementById('music-title').textContent = audioSources[0].title;
-            document.getElementById('music-artist').textContent = audioSources[0].artist;
+            // 显示提示
+            showPrompt('点击播放按钮开始背景音乐', 'info');
             
-            console.log('音乐播放器已初始化');
+            console.log('音乐播放器已初始化，等待用户交互');
+        }
+        
+        // 显示提示
+        function showPrompt(message, type = 'info') {
+            promptText.textContent = message;
             
-            // 5秒后显示提示
-            setTimeout(() => {
-                musicPrompt.style.display = 'flex';
-            }, 1000);
+            if (type === 'info') {
+                promptIcon.className = 'fas fa-info-circle';
+                promptIcon.style.color = 'var(--gold-color)';
+            } else if (type === 'error') {
+                promptIcon.className = 'fas fa-exclamation-circle';
+                promptIcon.style.color = 'var(--accent-color)';
+            } else if (type === 'success') {
+                promptIcon.className = 'fas fa-check-circle';
+                promptIcon.style.color = '#4CAF50';
+            }
             
-            // 10秒后自动隐藏提示
-            setTimeout(() => {
-                musicPrompt.style.display = 'none';
-            }, 10000);
+            musicPrompt.style.display = 'flex';
+            
+            // 5秒后自动隐藏提示（除非是错误提示）
+            if (type !== 'error') {
+                setTimeout(() => {
+                    if (musicPrompt.style.display === 'flex') {
+                        musicPrompt.style.display = 'none';
+                    }
+                }, 5000);
+            }
         }
         
         // 播放/暂停音乐
         function togglePlayPause() {
-            if (!currentAudio) {
-                console.error('音频元素未找到');
-                return;
-            }
+            // 标记用户已经交互
+            isUserInteracted = true;
             
             if (isPlaying) {
                 // 暂停音乐
-                currentAudio.pause();
-                isPlaying = false;
-                playIcon.className = "fas fa-play";
-                musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.4)";
-                console.log('音乐已暂停');
+                pauseMusic();
             } else {
                 // 播放音乐
-                const playPromise = currentAudio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isPlaying = true;
-                        playIcon.className = "fas fa-pause";
-                        musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.8)";
-                        musicPrompt.style.display = 'none';
-                        console.log('音乐开始播放');
-                    }).catch(error => {
-                        console.log('自动播放被阻止，需要用户交互:', error);
-                        
-                        // 显示提示让用户手动点击
-                        musicPrompt.innerHTML = `
-                            <i class="fas fa-exclamation-circle"></i>
-                            <span class="music-prompt-text">请点击播放按钮开始音乐</span>
-                            <button class="music-btn" style="width:30px;height:30px;font-size:0.8rem;" id="close-prompt">×</button>
-                        `;
-                        musicPrompt.style.display = 'flex';
-                        
-                        // 重新绑定关闭按钮
-                        document.getElementById('close-prompt').addEventListener('click', function() {
-                            musicPrompt.style.display = 'none';
-                        });
-                    });
-                }
+                playMusic();
             }
+        }
+        
+        function playMusic() {
+            // 尝试播放音乐
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // 播放成功
+                    isPlaying = true;
+                    playIcon.className = "fas fa-pause";
+                    musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.8)";
+                    musicTitle.textContent = "生日快乐钢琴曲";
+                    musicArtist.textContent = "正在播放";
+                    
+                    showPrompt('音乐开始播放', 'success');
+                    
+                    console.log('音乐开始播放');
+                }).catch(error => {
+                    // 播放失败
+                    console.error('播放失败:', error);
+                    
+                    // 显示错误提示
+                    showPrompt('播放失败，请检查音乐文件或网络连接', 'error');
+                    
+                    // 重置状态
+                    isPlaying = false;
+                    playIcon.className = "fas fa-play";
+                });
+            }
+        }
+        
+        function pauseMusic() {
+            audio.pause();
+            isPlaying = false;
+            playIcon.className = "fas fa-play";
+            musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.4)";
+            musicArtist.textContent = "已暂停";
+            
+            console.log('音乐已暂停');
         }
         
         // 更新音量
         function updateVolume() {
-            if (currentAudio) {
-                currentAudio.volume = volumeSlider.value / 100;
+            const volume = volumeSlider.value / 100;
+            audio.volume = volume;
+            
+            // 更新音量图标
+            if (volume === 0) {
+                volumeIcon.className = 'fas fa-volume-mute';
+            } else if (volume < 0.5) {
+                volumeIcon.className = 'fas fa-volume-down';
+            } else {
+                volumeIcon.className = 'fas fa-volume-up';
             }
+            
+            console.log('音量更新为:', volume);
         }
         
         // 事件监听
@@ -362,56 +902,151 @@
             musicPrompt.style.display = 'none';
         });
         
+        // 音频事件监听
+        audio.addEventListener('loadeddata', function() {
+            console.log('音乐文件已加载');
+            showPrompt('音乐已准备就绪，点击播放按钮开始', 'info');
+        });
+        
+        audio.addEventListener('error', function(e) {
+            console.error('音乐加载错误:', e);
+            showPrompt('音乐加载失败，请检查网络连接', 'error');
+            musicArtist.textContent = "加载失败";
+        });
+        
+        audio.addEventListener('ended', function() {
+            console.log('音乐播放结束');
+            // 如果是循环播放，这里不会触发，因为loop属性
+        });
+        
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             initMusic();
             
-            // 如果用户与页面交互，尝试自动播放
-            document.addEventListener('click', function initAutoPlay() {
-                if (!isPlaying) {
-                    // 移除事件监听器，避免重复触发
-                    document.removeEventListener('click', initAutoPlay);
-                    
-                    // 延迟一点时间播放
-                    setTimeout(() => {
-                        if (!isPlaying) {
-                            togglePlayPause();
-                        }
-                    }, 500);
-                }
-            });
+            // 创建粒子背景
+            createParticles();
+            
+            // 初始化滚动动画
+            initScrollAnimations();
+            
+            // 添加一些随机漂浮元素
+            addFloatingElements();
+            
+            // 添加祝福卡片点击效果
+            addCardClickEffects();
+            
+            // 尝试预加载音乐（不自动播放）
+            console.log('正在预加载音乐...');
+            audio.load();
         });
         
-        // 音频加载错误处理
-        if (currentAudio) {
-            currentAudio.addEventListener('error', function(e) {
-                console.error('音频加载错误:', e);
+        // 创建粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
                 
-                // 尝试切换到备用音乐源
-                if (audioSources.length > 1) {
-                    console.log('切换到备用音乐源');
-                    currentAudio = audioSources[1].element;
-                    document.getElementById('music-title').textContent = audioSources[1].title;
-                    document.getElementById('music-artist').textContent = audioSources[1].artist;
-                    
-                    // 重新设置音量
-                    currentAudio.volume = volumeSlider.value / 100;
-                    
-                    // 显示提示
-                    musicPrompt.innerHTML = `
-                        <i class="fas fa-info-circle"></i>
-                        <span class="music-prompt-text">已切换到备用音乐源</span>
-                        <button class="music-btn" style="width:30px;height:30px;font-size:0.8rem;" id="close-prompt">×</button>
-                    `;
-                    musicPrompt.style.display = 'flex';
-                    
-                    // 重新绑定关闭按钮
-                    document.getElementById('close-prompt').addEventListener('click', function() {
-                        musicPrompt.style.display = 'none';
-                    });
-                }
+                // 随机大小
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                // 随机颜色
+                const colors = ['rgba(212, 175, 55, 0.5)', 'rgba(233, 69, 96, 0.3)', 'rgba(255, 255, 255, 0.2)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                
+                // 应用动画
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // 滚动动画触发
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            elements.forEach(element => {
+                observer.observe(element);
             });
         }
+        
+        // 添加随机漂浮元素
+        function addFloatingElements() {
+            const bgElements = document.querySelector('.background-elements');
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                // 随机大小和位置
+                const size = Math.random() * 100 + 20;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 随机背景
+                const colors = [
+                    'radial-gradient(circle, rgba(233, 69, 96, 0.03) 0%, transparent 70%)',
+                    'radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%)',
+                    'radial-gradient(circle, rgba(255, 255, 255, 0.01) 0%, transparent 70%)'
+                ];
+                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                element.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                bgElements.appendChild(element);
+            }
+        }
+        
+        // 添加祝福卡片点击效果
+        function addCardClickEffects() {
+            document.querySelectorAll('.blessing-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        }
+        
+        // 用户第一次点击页面任意位置时尝试播放音乐
+        document.addEventListener('click', function firstInteraction() {
+            if (!isUserInteracted) {
+                // 移除事件监听，避免重复触发
+                document.removeEventListener('click', firstInteraction);
+                
+                // 显示提示
+                showPrompt('现在可以点击播放按钮开始音乐了', 'info');
+            }
+        });
     </script>
 </body>
 </html>
