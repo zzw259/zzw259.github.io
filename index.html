@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>郑晞澜 | 生日祝福</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -34,10 +33,10 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             width: 90%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
         
         /* 背景装饰 */
@@ -78,7 +77,7 @@
         /* 标题区域 */
         .header-section {
             text-align: center;
-            padding: 60px 0 40px;
+            padding: 40px 0 30px;
             position: relative;
             overflow: hidden;
         }
@@ -96,12 +95,24 @@
         
         .birthday-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: var(--light-color);
             letter-spacing: 3px;
             margin-bottom: 15px;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2rem;
+            }
         }
         
         .birthday-subtitle {
@@ -113,9 +124,16 @@
             margin-bottom: 10px;
         }
         
+        @media (max-width: 480px) {
+            .birthday-subtitle {
+                font-size: 1rem;
+                letter-spacing: 5px;
+            }
+        }
+        
         .honoree-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: var(--gold-color);
             margin: 20px 0;
             display: inline-block;
@@ -140,12 +158,31 @@
             right: 0;
         }
         
+        @media (max-width: 768px) {
+            .honoree-name {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .honoree-name {
+                font-size: 2rem;
+            }
+        }
+        
         /* 主要内容区域 */
         .content-section {
             display: flex;
             flex-wrap: wrap;
             gap: 40px;
-            margin: 60px 0;
+            margin: 40px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                flex-direction: column;
+                gap: 30px;
+            }
         }
         
         .message-card {
@@ -161,13 +198,19 @@
         }
         
         .message-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .message-card {
+                padding: 30px 25px;
+            }
         }
         
         .message-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--gold-color);
             margin-bottom: 25px;
             position: relative;
@@ -205,73 +248,12 @@
             line-height: 1;
         }
         
-        /* 祝福卡片区 */
-        .blessings-section {
-            margin: 60px 0;
-        }
-        
-        .blessings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .blessing-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 30px 25px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .blessing-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold-color), var(--accent-color));
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-        
-        .blessing-card:hover::before {
-            transform: translateX(0);
-        }
-        
-        .blessing-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateY(-5px);
-        }
-        
-        .blessing-icon {
-            font-size: 2.5rem;
-            color: var(--gold-color);
-            margin-bottom: 20px;
-        }
-        
-        .blessing-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            color: var(--light-color);
-            margin-bottom: 10px;
-        }
-        
-        .blessing-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-        
         /* 签名区域 */
         .signature-section {
             text-align: center;
-            padding: 60px 0;
+            padding: 50px 0;
             position: relative;
+            margin-top: 40px;
         }
         
         .signature-section::before {
@@ -287,9 +269,15 @@
         
         .signature {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             color: var(--gold-color);
             margin: 30px 0;
+        }
+        
+        @media (max-width: 480px) {
+            .signature {
+                font-size: 2rem;
+            }
         }
         
         .closing-message {
@@ -300,22 +288,22 @@
             line-height: 1.8;
         }
         
-        /* 粒子背景 */
-        .particles-container {
+        /* 装饰元素 */
+        .decorative-elements {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
             pointer-events: none;
+            z-index: -1;
         }
         
-        .particle {
+        .decorative-dot {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: rgba(212, 175, 55, 0.5);
+            width: 4px;
+            height: 4px;
+            background-color: rgba(212, 175, 55, 0.3);
             border-radius: 50%;
         }
         
@@ -336,7 +324,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-15px);
+                transform: translateY(-10px);
             }
         }
         
@@ -355,56 +343,14 @@
             animation: float 5s ease-in-out infinite;
         }
         
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .birthday-title {
-                font-size: 3rem;
-            }
-            
-            .honoree-name {
-                font-size: 2.8rem;
-            }
-            
-            .content-section {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .birthday-title {
-                font-size: 2.5rem;
-            }
-            
-            .honoree-name {
-                font-size: 2.2rem;
-            }
-            
-            .message-card {
-                padding: 30px 25px;
-            }
-            
-            .blessings-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .birthday-title {
-                font-size: 2rem;
-            }
-            
-            .birthday-subtitle {
-                font-size: 1rem;
-                letter-spacing: 5px;
-            }
-            
-            .honoree-name {
-                font-size: 1.8rem;
-            }
-            
-            .blessings-grid {
-                grid-template-columns: 1fr;
-            }
+        /* 页面底部 */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -415,8 +361,8 @@
         <div class="floating-element"></div>
     </div>
     
-    <!-- 粒子背景 -->
-    <div class="particles-container" id="particles"></div>
+    <!-- 装饰点 -->
+    <div class="decorative-elements" id="decorative-elements"></div>
     
     <div class="container">
         <!-- 标题区域 -->
@@ -450,60 +396,6 @@
             </div>
         </section>
         
-        <!-- 祝福卡片区 -->
-        <section class="blessings-section animate-on-scroll">
-            <h2 class="message-title" style="text-align: center;">美好祝愿</h2>
-            <div class="blessings-grid">
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3 class="blessing-title">健康快乐</h3>
-                    <p class="blessing-desc">身体康健，心境愉悦，生活充满阳光</p>
-                </div>
-                
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="blessing-title">梦想成真</h3>
-                    <p class="blessing-desc">所有期盼皆能实现，所有梦想皆能达成</p>
-                </div>
-                
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-gem"></i>
-                    </div>
-                    <h3 class="blessing-title">智慧成长</h3>
-                    <p class="blessing-desc">心智日益成熟，智慧与日俱增</p>
-                </div>
-                
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <h3 class="blessing-title">温暖阳光</h3>
-                    <p class="blessing-desc">生活处处有温暖，人生时时见阳光</p>
-                </div>
-                
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-compass"></i>
-                    </div>
-                    <h3 class="blessing-title">前程似锦</h3>
-                    <p class="blessing-desc">前路光明璀璨，未来无限可期</p>
-                </div>
-                
-                <div class="blessing-card">
-                    <div class="blessing-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3 class="blessing-title">生活如歌</h3>
-                    <p class="blessing-desc">每一天都充满旋律，每一刻都值得铭记</p>
-                </div>
-            </div>
-        </section>
-        
         <!-- 签名区域 -->
         <section class="signature-section animate-on-scroll">
             <div class="closing-message">
@@ -515,40 +407,45 @@
                 愿所有的美好都如期而至
             </div>
         </section>
+        
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>一份特别的生日祝福 · 衷心祝愿郑晞澜生日快乐</p>
+        </footer>
     </div>
 
     <script>
-        // 创建粒子背景
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 80;
+        // 创建装饰点
+        function createDecorativeElements() {
+            const container = document.getElementById('decorative-elements');
+            const dotCount = 60;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'decorative-dot';
                 
                 // 随机大小
                 const size = Math.random() * 3 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
                 
                 // 随机位置
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = ['rgba(212, 175, 55, 0.3)', 'rgba(233, 69, 96, 0.2)', 'rgba(255, 255, 255, 0.1)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                dot.style.backgroundColor = color;
                 
                 // 随机动画延迟和持续时间
                 const delay = Math.random() * 5;
                 const duration = Math.random() * 10 + 10;
                 
-                // 随机颜色
-                const colors = ['rgba(212, 175, 55, 0.5)', 'rgba(233, 69, 96, 0.3)', 'rgba(255, 255, 255, 0.2)'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.backgroundColor = color;
-                
                 // 应用动画
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                dot.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
                 
-                container.appendChild(particle);
+                container.appendChild(dot);
             }
         }
         
@@ -572,19 +469,22 @@
             });
         }
         
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            initScrollAnimations();
-            
-            // 添加一些随机漂浮元素
+        // 添加随机漂浮元素
+        function addFloatingElements() {
             const bgElements = document.querySelector('.background-elements');
-            for (let i = 0; i < 15; i++) {
+            
+            // 移除已有的两个固定元素
+            while (bgElements.firstChild) {
+                bgElements.removeChild(bgElements.firstChild);
+            }
+            
+            // 添加新的随机元素
+            for (let i = 0; i < 8; i++) {
                 const element = document.createElement('div');
                 element.className = 'floating-element';
                 
                 // 随机大小和位置
-                const size = Math.random() * 100 + 20;
+                const size = Math.random() * 150 + 50;
                 element.style.width = `${size}px`;
                 element.style.height = `${size}px`;
                 element.style.left = `${Math.random() * 100}%`;
@@ -605,11 +505,31 @@
                 
                 bgElements.appendChild(element);
             }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createDecorativeElements();
+            addFloatingElements();
+            initScrollAnimations();
+            
+            // 添加消息卡片悬停效果
+            document.querySelectorAll('.message-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+                });
+            });
             
             // 添加点击效果
-            document.querySelectorAll('.blessing-card').forEach(card => {
+            document.querySelectorAll('.message-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.98)';
+                    this.style.transform = 'scale(0.99)';
                     setTimeout(() => {
                         this.style.transform = '';
                     }, 200);
