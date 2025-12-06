@@ -14,6 +14,8 @@
             --light-color: #f5f5f5;
             --text-light: #e6e6e6;
             --text-muted: #b0b0b0;
+            --star-color: rgba(255, 255, 255, 0.8);
+            --star-glow: rgba(255, 255, 200, 0.9);
         }
         
         * {
@@ -72,6 +74,88 @@
             bottom: -100px;
             left: -100px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+        
+        /* 星星样式 */
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--star-color);
+            box-shadow: 0 0 6px var(--star-glow);
+            z-index: -1;
+        }
+        
+        .star::before, .star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: inherit;
+        }
+        
+        .star::before {
+            width: 150%;
+            height: 150%;
+            opacity: 0.4;
+            filter: blur(1px);
+        }
+        
+        .star::after {
+            width: 70%;
+            height: 70%;
+            opacity: 0.7;
+            filter: blur(0.5px);
+        }
+        
+        /* 星光动画 */
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.8); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2); 
+            }
+        }
+        
+        @keyframes twinkleSlow {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: scale(0.9); 
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scale(1.1); 
+            }
+        }
+        
+        @keyframes twinkleVerySlow {
+            0%, 100% { 
+                opacity: 0.1; 
+                transform: scale(0.95); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.05); 
+            }
+        }
+        
+        @keyframes floatStar {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(0) rotate(180deg);
+            }
+            75% {
+                transform: translateY(10px) rotate(270deg);
+            }
         }
         
         /* 标题区域 */
@@ -364,6 +448,9 @@
     <!-- 装饰点 -->
     <div class="decorative-elements" id="decorative-elements"></div>
     
+    <!-- 星星容器 -->
+    <div class="stars-container" id="stars-container"></div>
+    
     <div class="container">
         <!-- 标题区域 -->
         <section class="header-section">
@@ -415,6 +502,64 @@
     </div>
 
     <script>
+        // 创建星星
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 30; // 星星数量，可以根据需要调整
+            
+            // 星星可能的颜色
+            const starColors = [
+                'rgba(255, 255, 255, 0.9)',      // 白色
+                'rgba(255, 255, 200, 0.9)',      // 淡黄色
+                'rgba(212, 175, 55, 0.8)',       // 金色
+                'rgba(233, 69, 96, 0.7)',        // 粉色/红色
+                'rgba(255, 255, 255, 0.7)'       // 半透明白色
+            ];
+            
+            // 动画类型
+            const animations = ['twinkle', 'twinkleSlow', 'twinkleVerySlow'];
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机大小 (1-5像素)
+                const size = Math.random() * 4 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colorIndex = Math.floor(Math.random() * starColors.length);
+                star.style.backgroundColor = starColors[colorIndex];
+                
+                // 随机动画
+                const animationIndex = Math.floor(Math.random() * animations.length);
+                const animation = animations[animationIndex];
+                const duration = Math.random() * 5 + 3; // 3-8秒
+                const delay = Math.random() * 5; // 0-5秒延迟
+                
+                // 应用动画
+                star.style.animation = `${animation} ${duration}s ease-in-out ${delay}s infinite`;
+                
+                // 30%的星星有额外的浮动动画
+                if (Math.random() > 0.7) {
+                    const floatDuration = Math.random() * 20 + 15; // 15-35秒
+                    star.style.animation += `, floatStar ${floatDuration}s ease-in-out ${delay}s infinite`;
+                }
+                
+                // 添加一些星星有不同大小的光晕
+                if (Math.random() > 0.5) {
+                    star.style.boxShadow = `0 0 ${Math.random() * 8 + 4}px ${starColors[colorIndex]}`;
+                }
+                
+                container.appendChild(star);
+            }
+        }
+        
         // 创建装饰点
         function createDecorativeElements() {
             const container = document.getElementById('decorative-elements');
@@ -510,6 +655,7 @@
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             createDecorativeElements();
+            createStars(); // 创建星星
             addFloatingElements();
             initScrollAnimations();
             
