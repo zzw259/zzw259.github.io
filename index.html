@@ -11,6 +11,7 @@
             --secondary-color: #16213e;
             --accent-color: #e94560;
             --gold-color: #d4af37;
+            --star-color: #fff9c4;
             --light-color: #f5f5f5;
             --text-light: #e6e6e6;
             --text-muted: #b0b0b0;
@@ -37,10 +38,23 @@
             width: 90%;
             margin: 0 auto;
             padding: 40px 20px;
+            position: relative;
+            z-index: 1;
         }
         
-        /* 背景装饰 */
-        .background-elements {
+        /* 星空背景 */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        /* 流星容器 */
+        .meteor-shower {
             position: fixed;
             top: 0;
             left: 0;
@@ -51,27 +65,65 @@
             overflow: hidden;
         }
         
+        /* 小星星样式 */
+        .star {
+            position: absolute;
+            background-color: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate ease-in-out;
+            box-shadow: 0 0 6px rgba(255, 249, 196, 0.8);
+        }
+        
+        /* 流星样式 */
+        .meteor {
+            position: absolute;
+            top: -50px;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--star-color));
+            transform: rotate(-45deg);
+            opacity: 0;
+            box-shadow: 0 0 10px 1px rgba(255, 249, 196, 0.8);
+        }
+        
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to bottom, var(--star-color), transparent);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .meteor::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -1px;
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255, 249, 196, 0.8), transparent);
+        }
+        
+        /* 背景装饰元素 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
         .floating-element {
             position: absolute;
             border-radius: 50%;
             background: rgba(212, 175, 55, 0.05);
             backdrop-filter: blur(5px);
-        }
-        
-        .floating-element:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -150px;
-            background: radial-gradient(circle, rgba(233, 69, 96, 0.08) 0%, transparent 70%);
-        }
-        
-        .floating-element:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            left: -100px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
         }
         
         /* 标题区域 */
@@ -288,26 +340,45 @@
             line-height: 1.8;
         }
         
-        /* 装饰元素 */
-        .decorative-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .decorative-dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
+        /* 页面底部 */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
         }
         
         /* 动画 */
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes meteorFall {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0) rotate(-45deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(100vw) rotate(-45deg);
+            }
+        }
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -342,27 +413,20 @@
         .float-animation {
             animation: float 5s ease-in-out infinite;
         }
-        
-        /* 页面底部 */
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 40px;
-        }
     </style>
 </head>
 <body>
+    <!-- 星空背景 -->
+    <div class="starfield" id="starfield"></div>
+    
+    <!-- 流星雨 -->
+    <div class="meteor-shower" id="meteor-shower"></div>
+    
     <!-- 背景装饰元素 -->
     <div class="background-elements">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
     </div>
-    
-    <!-- 装饰点 -->
-    <div class="decorative-elements" id="decorative-elements"></div>
     
     <div class="container">
         <!-- 标题区域 -->
@@ -415,37 +479,111 @@
     </div>
 
     <script>
-        // 创建装饰点
-        function createDecorativeElements() {
-            const container = document.getElementById('decorative-elements');
-            const dotCount = 60;
+        // 创建小星星
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 20;
             
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'decorative-dot';
+            // 页面左右两侧空白区域的宽度百分比
+            const leftZone = 0.3; // 左侧30%区域
+            const rightZone = 0.7; // 右侧30%区域 (从70%到100%)
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
                 
-                // 随机大小
-                const size = Math.random() * 3 + 1;
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
+                // 随机大小 (1-3px)
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置 - 在左右两侧空白区域
+                let leftPercent;
+                const side = Math.random() > 0.5 ? 'left' : 'right';
+                
+                if (side === 'left') {
+                    // 左侧区域 (0% 到 30%)
+                    leftPercent = Math.random() * leftZone * 100;
+                } else {
+                    // 右侧区域 (70% 到 100%)
+                    leftPercent = rightZone * 100 + Math.random() * (1 - rightZone) * 100;
+                }
+                
+                star.style.left = `${leftPercent}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                const delay = Math.random() * 5;
+                star.style.animationDelay = `${delay}s`;
+                
+                // 随机颜色变化 (金色到白色)
+                const brightness = Math.random() * 0.5 + 0.5;
+                star.style.backgroundColor = `rgba(255, 249, 196, ${brightness})`;
+                
+                starfield.appendChild(star);
+            }
+            
+            // 添加一些更小的背景星星
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 更小的背景星星 (0.5-1.5px)
+                const size = Math.random() + 0.5;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
                 
                 // 随机位置
-                dot.style.left = `${Math.random() * 100}%`;
-                dot.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
                 
-                // 随机颜色
-                const colors = ['rgba(212, 175, 55, 0.3)', 'rgba(233, 69, 96, 0.2)', 'rgba(255, 255, 255, 0.1)'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                dot.style.backgroundColor = color;
+                // 更淡的颜色
+                star.style.backgroundColor = `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`;
+                
+                // 更慢的闪烁
+                const duration = Math.random() * 4 + 2;
+                const delay = Math.random() * 5;
+                star.style.animation = `twinkle ${duration}s infinite alternate ease-in-out ${delay}s`;
+                
+                starfield.appendChild(star);
+            }
+        }
+        
+        // 创建流星
+        function createMeteors() {
+            const meteorShower = document.getElementById('meteor-shower');
+            const meteorCount = 8; // 流星数量
+            
+            for (let i = 0; i < meteorCount; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                
+                // 随机水平位置
+                meteor.style.left = `${Math.random() * 100}%`;
+                
+                // 随机大小和速度
+                const width = Math.random() * 2 + 1;
+                const height = Math.random() * 40 + 60;
+                meteor.style.width = `${width}px`;
+                meteor.style.height = `${height}px`;
                 
                 // 随机动画延迟和持续时间
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 20; // 0-20秒后开始
+                const duration = Math.random() * 3 + 2; // 2-5秒完成
                 
-                // 应用动画
-                dot.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                // 应用流星动画
+                meteor.style.animation = `meteorFall ${duration}s linear infinite ${delay}s`;
                 
-                container.appendChild(dot);
+                // 随机颜色 (金色到白色)
+                const colorVariation = Math.random();
+                if (colorVariation > 0.7) {
+                    meteor.style.background = `linear-gradient(to bottom, transparent, rgba(233, 69, 96, 0.7))`;
+                    meteor.style.boxShadow = `0 0 10px 1px rgba(233, 69, 96, 0.8)`;
+                } else if (colorVariation > 0.4) {
+                    meteor.style.background = `linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.8))`;
+                }
+                
+                meteorShower.appendChild(meteor);
             }
         }
         
@@ -479,12 +617,12 @@
             }
             
             // 添加新的随机元素
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 6; i++) {
                 const element = document.createElement('div');
                 element.className = 'floating-element';
                 
                 // 随机大小和位置
-                const size = Math.random() * 150 + 50;
+                const size = Math.random() * 120 + 40;
                 element.style.width = `${size}px`;
                 element.style.height = `${size}px`;
                 element.style.left = `${Math.random() * 100}%`;
@@ -499,9 +637,9 @@
                 element.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
                 // 随机动画
-                const duration = Math.random() * 20 + 10;
+                const duration = Math.random() * 15 + 10;
                 const delay = Math.random() * 5;
-                element.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                element.style.animation = `float ${duration}s ease-in-out infinite ${delay}s`;
                 
                 bgElements.appendChild(element);
             }
@@ -509,7 +647,8 @@
         
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
-            createDecorativeElements();
+            createStars();
+            createMeteors();
             addFloatingElements();
             initScrollAnimations();
             
@@ -535,6 +674,75 @@
                     }, 200);
                 });
             });
+            
+            // 每10秒添加一颗额外的流星
+            setInterval(() => {
+                const meteorShower = document.getElementById('meteor-shower');
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                
+                // 随机水平位置
+                meteor.style.left = `${Math.random() * 100}%`;
+                
+                // 随机大小
+                const width = Math.random() * 2 + 1;
+                const height = Math.random() * 40 + 60;
+                meteor.style.width = `${width}px`;
+                meteor.style.height = `${height}px`;
+                
+                // 随机持续时间
+                const duration = Math.random() * 2 + 1; // 1-3秒
+                
+                // 应用流星动画
+                meteor.style.animation = `meteorFall ${duration}s linear forwards`;
+                
+                // 随机颜色
+                const colorVariation = Math.random();
+                if (colorVariation > 0.7) {
+                    meteor.style.background = `linear-gradient(to bottom, transparent, rgba(233, 69, 96, 0.7))`;
+                    meteor.style.boxShadow = `0 0 10px 1px rgba(233, 69, 96, 0.8)`;
+                }
+                
+                meteorShower.appendChild(meteor);
+                
+                // 动画结束后移除流星
+                setTimeout(() => {
+                    if (meteor.parentNode) {
+                        meteor.parentNode.removeChild(meteor);
+                    }
+                }, duration * 1000);
+            }, 10000);
+            
+            // 随机添加一些额外的星星
+            setTimeout(() => {
+                const starfield = document.getElementById('starfield');
+                for (let i = 0; i < 10; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    
+                    const size = Math.random() * 1.5 + 0.5;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    // 主要分布在左右两侧
+                    let leftPercent;
+                    const side = Math.random() > 0.5 ? 'left' : 'right';
+                    
+                    if (side === 'left') {
+                        leftPercent = Math.random() * 30;
+                    } else {
+                        leftPercent = 70 + Math.random() * 30;
+                    }
+                    
+                    star.style.left = `${leftPercent}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    
+                    const delay = Math.random() * 5;
+                    star.style.animationDelay = `${delay}s`;
+                    
+                    starfield.appendChild(star);
+                }
+            }, 2000);
         });
     </script>
 </body>
