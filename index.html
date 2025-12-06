@@ -40,128 +40,6 @@
             padding: 20px;
         }
         
-        /* 音乐播放器 - 确保始终可见 */
-        .music-player-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            max-width: 400px;
-            animation: slideIn 0.5s ease forwards;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .music-btn {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: var(--gold-color);
-            font-size: 1.2rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .music-btn:hover {
-            background: rgba(212, 175, 55, 0.3);
-            transform: scale(1.1);
-        }
-        
-        .music-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            max-width: 180px;
-        }
-        
-        .music-title {
-            font-size: 0.9rem;
-            color: var(--light-color);
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .music-artist {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .volume-slider {
-            width: 80px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            outline: none;
-            -webkit-appearance: none;
-        }
-        
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--gold-color);
-            cursor: pointer;
-        }
-        
-        .music-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(26, 26, 46, 0.95);
-            border-radius: 10px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 999;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         /* 背景装饰 */
         .background-elements {
             position: fixed;
@@ -179,6 +57,22 @@
             border-radius: 50%;
             background: rgba(212, 175, 55, 0.05);
             backdrop-filter: blur(5px);
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.08) 0%, transparent 70%);
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
         }
         
         /* 标题区域 */
@@ -406,89 +300,136 @@
             line-height: 1.8;
         }
         
-        /* 音乐测试按钮 */
-        .music-test-btn {
+        /* 粒子背景 */
+        .particles-container {
             position: fixed;
-            bottom: 80px;
-            left: 20px;
-            background: rgba(26, 26, 46, 0.95);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold-color);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            z-index: 998;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .float-animation {
+            animation: float 5s ease-in-out infinite;
         }
         
         /* 响应式设计 */
-        @media (max-width: 768px) {
-            .music-player-container {
-                position: fixed;
-                bottom: 20px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                max-width: 90%;
-                width: 90%;
-                justify-content: center;
+        @media (max-width: 992px) {
+            .birthday-title {
+                font-size: 3rem;
             }
             
-            .music-test-btn {
-                display: none;
+            .honoree-name {
+                font-size: 2.8rem;
+            }
+            
+            .content-section {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+            
+            .honoree-name {
+                font-size: 2.2rem;
+            }
+            
+            .message-card {
+                padding: 30px 25px;
+            }
+            
+            .blessings-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2rem;
+            }
+            
+            .birthday-subtitle {
+                font-size: 1rem;
+                letter-spacing: 5px;
+            }
+            
+            .honoree-name {
+                font-size: 1.8rem;
+            }
+            
+            .blessings-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 音乐播放器 -->
-    <div class="music-player-container" id="music-player">
-        <div class="music-controls">
-            <button class="music-btn" id="play-pause-btn">
-                <i class="fas fa-play" id="play-icon"></i>
-            </button>
-        </div>
-        
-        <div class="music-info">
-            <div class="music-title" id="music-title">生日快乐钢琴曲</div>
-            <div class="music-artist" id="music-artist">点击播放按钮</div>
-        </div>
-        
-        <div class="volume-control">
-            <i class="fas fa-volume-up volume-icon"></i>
-            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume-slider">
-        </div>
-    </div>
-    
-    <!-- 音乐测试按钮 -->
-    <button class="music-test-btn" id="music-test-btn">测试音乐播放</button>
-    
-    <!-- 音乐提示 -->
-    <div class="music-prompt" id="music-prompt" style="display:none;">
-        <i class="fas fa-music"></i>
-        <span class="music-prompt-text" id="music-prompt-text">点击播放按钮开始音乐</span>
-        <button class="music-btn" style="width:30px;height:30px;font-size:0.8rem;" id="close-prompt">×</button>
-    </div>
-    
-    <!-- 背景装饰 -->
+    <!-- 背景装饰元素 -->
     <div class="background-elements">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
     </div>
     
-    <!-- 页面内容 -->
+    <!-- 粒子背景 -->
+    <div class="particles-container" id="particles"></div>
+    
     <div class="container">
         <!-- 标题区域 -->
         <section class="header-section">
             <div class="birthday-subtitle">CELEBRATING A SPECIAL DAY</div>
             <h1 class="birthday-title">生日快乐</h1>
-            <div class="honoree-name">郑晞澜</div>
+            <div class="honoree-name float-animation">郑晞澜</div>
             <div class="birthday-subtitle">愿这特别的一天充满喜悦与美好</div>
         </section>
         
         <!-- 主要内容区域 -->
         <section class="content-section">
-            <div class="message-card">
+            <div class="message-card animate-on-scroll">
                 <h2 class="message-title">诚挚祝福</h2>
                 <div class="message-content">
                     <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
@@ -498,7 +439,7 @@
                 </div>
             </div>
             
-            <div class="message-card">
+            <div class="message-card animate-on-scroll">
                 <h2 class="message-title">美好祈愿</h2>
                 <div class="message-content">
                     <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
@@ -510,7 +451,7 @@
         </section>
         
         <!-- 祝福卡片区 -->
-        <section class="blessings-section">
+        <section class="blessings-section animate-on-scroll">
             <h2 class="message-title" style="text-align: center;">美好祝愿</h2>
             <div class="blessings-grid">
                 <div class="blessing-card">
@@ -564,7 +505,7 @@
         </section>
         
         <!-- 签名区域 -->
-        <section class="signature-section">
+        <section class="signature-section animate-on-scroll">
             <div class="closing-message">
                 谨以此页表达最真挚的祝福。愿你的新一岁充满无限可能，每一天都比前一天更加精彩。
             </div>
@@ -576,320 +517,104 @@
         </section>
     </div>
 
-    <!-- 音频元素 - 使用多个备用音乐源 -->
-    <audio id="music-source-1" preload="none">
-        <!-- 源1：生日快乐钢琴曲 -->
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="music-source-2" preload="none">
-        <!-- 源2：备用生日快乐音乐 -->
-        <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-397.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="music-source-3" preload="none">
-        <!-- 源3：备用轻音乐 -->
-        <source src="https://assets.mixkit.co/music/preview/mixkit-sunny-happy-1326.mp3" type="audio/mpeg">
-    </audio>
-    
-    <!-- 本地测试音频（使用简单的Base64音频） -->
-    <audio id="local-music" preload="none">
-        <!-- 这是一个非常短的测试音频 -->
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI1LjEwMAAAAAAAAAAAAAAA//tUwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAFAAACcACCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKC" type="audio/mpeg">
-    </audio>
-
     <script>
-        // 获取DOM元素
-        const musicPlayer = document.getElementById('music-player');
-        const musicPrompt = document.getElementById('music-prompt');
-        const promptText = document.getElementById('music-prompt-text');
-        const playPauseBtn = document.getElementById('play-pause-btn');
-        const playIcon = document.getElementById('play-icon');
-        const volumeSlider = document.getElementById('volume-slider');
-        const closePromptBtn = document.getElementById('close-prompt');
-        const musicTitle = document.getElementById('music-title');
-        const musicArtist = document.getElementById('music-artist');
-        const testMusicBtn = document.getElementById('music-test-btn');
-        
-        // 音频元素
-        const audioSources = [
-            { id: 'music-source-1', name: '生日快乐钢琴曲', element: document.getElementById('music-source-1') },
-            { id: 'music-source-2', name: '温馨背景音乐', element: document.getElementById('music-source-2') },
-            { id: 'music-source-3', name: '快乐轻音乐', element: document.getElementById('music-source-3') },
-            { id: 'local-music', name: '本地测试音频', element: document.getElementById('local-music') }
-        ];
-        
-        // 当前使用的音频
-        let currentAudio = null;
-        let currentSourceIndex = 0;
-        let isPlaying = false;
-        
-        // 显示提示信息
-        function showPrompt(message, type = 'info') {
-            promptText.textContent = message;
-            musicPrompt.style.display = 'flex';
+        // 创建粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 80;
             
-            // 5秒后自动隐藏（错误信息不自动隐藏）
-            if (type !== 'error') {
-                setTimeout(() => {
-                    if (musicPrompt.style.display === 'flex') {
-                        musicPrompt.style.display = 'none';
-                    }
-                }, 5000);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                // 随机颜色
+                const colors = ['rgba(212, 175, 55, 0.5)', 'rgba(233, 69, 96, 0.3)', 'rgba(255, 255, 255, 0.2)'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+                
+                // 应用动画
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                container.appendChild(particle);
             }
         }
         
-        // 初始化音乐
-        function initMusic() {
-            // 默认使用第一个音频源
-            currentSourceIndex = 0;
-            currentAudio = audioSources[currentSourceIndex].element;
-            musicTitle.textContent = audioSources[currentSourceIndex].name;
-            musicArtist.textContent = '准备就绪';
+        // 滚动动画触发
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
             
-            // 设置音量
-            currentAudio.volume = volumeSlider.value / 100;
-            
-            // 显示初始化提示
-            showPrompt('音乐播放器已就绪，点击播放按钮开始音乐');
-            
-            console.log('音乐播放器初始化完成');
-        }
-        
-        // 切换到下一个音频源
-        function switchToNextSource() {
-            currentSourceIndex = (currentSourceIndex + 1) % audioSources.length;
-            currentAudio = audioSources[currentSourceIndex].element;
-            musicTitle.textContent = audioSources[currentSourceIndex].name;
-            musicArtist.textContent = '已切换到备用源';
-            
-            // 设置音量
-            currentAudio.volume = volumeSlider.value / 100;
-            
-            showPrompt(`已切换到: ${audioSources[currentSourceIndex].name}`);
-            
-            return currentAudio;
-        }
-        
-        // 播放音乐
-        function playMusic() {
-            if (!currentAudio) {
-                showPrompt('音频未初始化', 'error');
-                return;
-            }
-            
-            // 尝试播放当前音频
-            const playPromise = currentAudio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    // 播放成功
-                    isPlaying = true;
-                    playIcon.className = "fas fa-pause";
-                    musicArtist.textContent = '播放中...';
-                    musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.8)";
-                    
-                    showPrompt('音乐开始播放');
-                    console.log('音乐播放成功');
-                    
-                }).catch(error => {
-                    // 播放失败，尝试下一个音频源
-                    console.log('播放失败，尝试下一个音频源:', error);
-                    
-                    // 如果还有备用源，切换到下一个
-                    if (currentSourceIndex < audioSources.length - 1) {
-                        const nextAudio = switchToNextSource();
-                        
-                        // 延迟后尝试播放新的音频源
-                        setTimeout(() => {
-                            playMusic();
-                        }, 500);
-                    } else {
-                        // 所有音频源都失败
-                        showPrompt('所有音乐源都无法播放，请检查网络连接', 'error');
-                        musicArtist.textContent = '播放失败';
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
                     }
                 });
-            }
-        }
-        
-        // 暂停音乐
-        function pauseMusic() {
-            if (currentAudio && isPlaying) {
-                currentAudio.pause();
-                isPlaying = false;
-                playIcon.className = "fas fa-play";
-                musicArtist.textContent = '已暂停';
-                musicPlayer.style.borderColor = "rgba(212, 175, 55, 0.4)";
-            }
-        }
-        
-        // 切换播放/暂停
-        function togglePlayPause() {
-            if (isPlaying) {
-                pauseMusic();
-            } else {
-                playMusic();
-            }
-        }
-        
-        // 更新音量
-        function updateVolume() {
-            const volume = volumeSlider.value / 100;
-            if (currentAudio) {
-                currentAudio.volume = volume;
-            }
-            console.log('音量设置为:', volume);
-        }
-        
-        // 测试音乐播放
-        function testMusicPlayback() {
-            showPrompt('正在测试音乐播放...');
-            
-            // 创建一个简单的测试音频（使用Web Audio API）
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = 440; // A4音符
-                oscillator.type = 'sine';
-                gainNode.gain.value = 0.1;
-                
-                oscillator.start();
-                
-                setTimeout(() => {
-                    oscillator.stop();
-                    showPrompt('音频测试成功！现在可以尝试播放背景音乐');
-                }, 500);
-                
-            } catch (error) {
-                console.error('音频测试失败:', error);
-                showPrompt('音频测试失败: ' + error.message, 'error');
-            }
-        }
-        
-        // 检查音频是否可播放
-        function checkAudioPlayable() {
-            showPrompt('正在检查音频...');
-            
-            // 测试每个音频源
-            let playableSourceFound = false;
-            
-            audioSources.forEach((source, index) => {
-                const audio = source.element;
-                
-                // 检查音频是否可播放
-                if (audio.readyState >= 2) { // HAVE_CURRENT_DATA or more
-                    console.log(`${source.name} 已加载`);
-                    playableSourceFound = true;
-                    
-                    if (index === 0) {
-                        currentAudio = audio;
-                        musicTitle.textContent = source.name;
-                        musicArtist.textContent = '准备就绪';
-                        showPrompt('找到可播放的音频源');
-                    }
-                } else {
-                    // 尝试加载音频
-                    audio.load();
-                    
-                    audio.addEventListener('canplaythrough', () => {
-                        console.log(`${source.name} 可以播放`);
-                        playableSourceFound = true;
-                        
-                        if (!currentAudio) {
-                            currentAudio = audio;
-                            currentSourceIndex = index;
-                            musicTitle.textContent = source.name;
-                            musicArtist.textContent = '准备就绪';
-                            showPrompt('音频加载完成，可以播放');
-                        }
-                    });
-                    
-                    audio.addEventListener('error', (e) => {
-                        console.log(`${source.name} 加载失败:`, e);
-                    });
-                }
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
             });
             
-            if (!playableSourceFound) {
-                showPrompt('未找到可播放的音频源，请检查网络连接', 'error');
-            }
+            elements.forEach(element => {
+                observer.observe(element);
+            });
         }
         
-        // 事件监听
-        playPauseBtn.addEventListener('click', togglePlayPause);
-        volumeSlider.addEventListener('input', updateVolume);
-        closePromptBtn.addEventListener('click', () => {
-            musicPrompt.style.display = 'none';
-        });
-        testMusicBtn.addEventListener('click', testMusicPlayback);
-        
-        // 页面点击事件 - 解决浏览器自动播放限制
-        document.addEventListener('click', function enableAudio() {
-            // 移除事件监听，避免重复触发
-            document.removeEventListener('click', enableAudio);
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initScrollAnimations();
             
-            // 用户已与页面交互，现在可以初始化音频
-            initMusic();
-            checkAudioPlayable();
-            
-            showPrompt('页面已激活，现在可以播放音乐');
-        }, { once: true });
-        
-        // 音频事件监听
-        audioSources.forEach(source => {
-            const audio = source.element;
-            
-            audio.addEventListener('ended', () => {
-                console.log(`${source.name} 播放结束`);
-                if (isPlaying && currentAudio === audio) {
-                    // 如果是循环播放，重新开始
-                    audio.currentTime = 0;
-                    audio.play().catch(error => {
-                        console.log('重新播放失败:', error);
-                    });
-                }
-            });
-            
-            audio.addEventListener('error', (e) => {
-                console.error(`${source.name} 播放错误:`, e);
-            });
-        });
-        
-        // 页面加载完成
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('页面加载完成');
-            
-            // 显示音乐播放器
-            musicPlayer.style.display = 'flex';
-            
-            // 显示初始提示
-            showPrompt('请点击页面任意位置激活音乐播放器');
-        });
-        
-        // 键盘快捷键
-        document.addEventListener('keydown', (e) => {
-            // 空格键切换播放/暂停
-            if (e.code === 'Space' && !e.target.matches('input, textarea')) {
-                e.preventDefault();
-                togglePlayPause();
+            // 添加一些随机漂浮元素
+            const bgElements = document.querySelector('.background-elements');
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                // 随机大小和位置
+                const size = Math.random() * 100 + 20;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 随机背景
+                const colors = [
+                    'radial-gradient(circle, rgba(233, 69, 96, 0.03) 0%, transparent 70%)',
+                    'radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%)',
+                    'radial-gradient(circle, rgba(255, 255, 255, 0.01) 0%, transparent 70%)'
+                ];
+                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                element.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                bgElements.appendChild(element);
             }
             
-            // M键静音/取消静音
-            if (e.code === 'KeyM' && !e.target.matches('input, textarea')) {
-                e.preventDefault();
-                if (volumeSlider.value > 0) {
-                    volumeSlider.value = 0;
-                } else {
-                    volumeSlider.value = 50;
-                }
-                updateVolume();
-            }
+            // 添加点击效果
+            document.querySelectorAll('.blessing-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
         });
     </script>
 </body>
