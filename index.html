@@ -319,6 +319,192 @@
             border-radius: 50%;
         }
         
+        /* 音乐播放器 */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 50px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            max-width: 400px;
+        }
+        
+        .music-player:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .music-btn {
+            background: transparent;
+            border: none;
+            color: var(--gold-color);
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .music-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            max-width: 180px;
+        }
+        
+        .music-title {
+            font-size: 0.9rem;
+            color: var(--light-color);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .music-artist {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold-color);
+            cursor: pointer;
+        }
+        
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold-color);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .volume-icon {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        
+        .playlist-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .playlist-btn:hover {
+            color: var(--gold-color);
+        }
+        
+        .playlist-dropdown {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            padding: 10px 0;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        
+        .playlist-dropdown.show {
+            display: block;
+        }
+        
+        .playlist-item {
+            padding: 10px 15px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .playlist-item:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+        
+        .playlist-item.active {
+            color: var(--gold-color);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .playlist-item i {
+            font-size: 0.9rem;
+        }
+        
+        /* 心跳动画效果 */
+        .heartbeat-visualizer {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 200px;
+            height: 60px;
+            z-index: 999;
+            display: none;
+        }
+        
+        .heartbeat-line {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            filter: drop-shadow(0 0 5px rgba(233, 69, 96, 0.5));
+        }
+        
         /* 动画 */
         @keyframes fadeInUp {
             from {
@@ -340,6 +526,15 @@
             }
         }
         
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -355,6 +550,10 @@
             animation: float 5s ease-in-out infinite;
         }
         
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 992px) {
             .birthday-title {
@@ -367,6 +566,11 @@
             
             .content-section {
                 flex-direction: column;
+            }
+            
+            .music-player {
+                max-width: 350px;
+                padding: 12px 15px;
             }
         }
         
@@ -385,6 +589,21 @@
             
             .blessings-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .music-player {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 90%;
+                width: 90%;
+                justify-content: center;
+            }
+            
+            .heartbeat-visualizer {
+                display: none;
             }
         }
         
@@ -405,6 +624,15 @@
             .blessings-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .music-player {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            
+            .music-info {
+                max-width: 120px;
+            }
         }
     </style>
 </head>
@@ -417,6 +645,57 @@
     
     <!-- 粒子背景 -->
     <div class="particles-container" id="particles"></div>
+    
+    <!-- 音乐播放器 -->
+    <div class="music-player">
+        <div class="music-controls">
+            <button class="music-btn" id="prev-btn">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="music-btn pulse-animation" id="play-pause-btn">
+                <i class="fas fa-play" id="play-icon"></i>
+            </button>
+            <button class="music-btn" id="next-btn">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+        
+        <div class="music-info">
+            <div class="music-title" id="music-title">遗失的心跳 (钢琴版)</div>
+            <div class="music-artist" id="music-artist">致郑晞澜的生日祝福</div>
+        </div>
+        
+        <div class="volume-control">
+            <i class="fas fa-volume-up volume-icon"></i>
+            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volume-slider">
+        </div>
+        
+        <button class="playlist-btn" id="playlist-btn">
+            <i class="fas fa-list"></i>
+        </button>
+        
+        <div class="playlist-dropdown" id="playlist-dropdown">
+            <div class="playlist-item active" data-track="1">
+                <i class="fas fa-music"></i>
+                <span>遗失的心跳 (钢琴版)</span>
+            </div>
+            <div class="playlist-item" data-track="2">
+                <i class="fas fa-music"></i>
+                <span>生日快乐变奏曲</span>
+            </div>
+            <div class="playlist-item" data-track="3">
+                <i class="fas fa-music"></i>
+                <span>美好的时光 (轻音乐)</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 心跳可视化 -->
+    <div class="heartbeat-visualizer" id="heartbeat-visualizer">
+        <svg width="200" height="60" viewBox="0 0 200 60">
+            <path class="heartbeat-line" id="heartbeat-line" d="M0,30 Q20,10 40,30 T80,30 T120,30 T160,30 T200,30" />
+        </svg>
+    </div>
     
     <div class="container">
         <!-- 标题区域 -->
@@ -516,8 +795,240 @@
             </div>
         </section>
     </div>
+    
+    <!-- 音频元素 -->
+    <audio id="background-music" loop>
+        <!-- 这里使用在线钢琴版《遗失的心跳》音乐 -->
+        <!-- 如果音乐无法播放，可以替换为其他在线音乐链接 -->
+        <source src="https://assets.codepen.io/1468070/piano-music-1.mp3" type="audio/mpeg">
+        <source src="https://assets.codepen.io/1468070/piano-music-1.ogg" type="audio/ogg">
+        您的浏览器不支持音频播放。
+    </audio>
+    
+    <!-- 备用音乐 -->
+    <audio id="birthday-music">
+        <source src="https://assets.codepen.io/1468070/happy-birthday-piano.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="light-music">
+        <source src="https://assets.codepen.io/1468070/light-music.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
+        // 音乐播放器功能
+        const audioPlayer = document.getElementById('background-music');
+        const birthdayMusic = document.getElementById('birthday-music');
+        const lightMusic = document.getElementById('light-music');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = document.getElementById('play-icon');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+        const musicTitle = document.getElementById('music-title');
+        const musicArtist = document.getElementById('music-artist');
+        const playlistBtn = document.getElementById('playlist-btn');
+        const playlistDropdown = document.getElementById('playlist-dropdown');
+        const playlistItems = document.querySelectorAll('.playlist-item');
+        const heartbeatVisualizer = document.getElementById('heartbeat-visualizer');
+        const heartbeatLine = document.getElementById('heartbeat-line');
+        
+        // 当前播放曲目索引
+        let currentTrack = 1;
+        let isPlaying = false;
+        
+        // 曲目列表
+        const tracks = [
+            {
+                id: 1,
+                title: "遗失的心跳 (钢琴版)",
+                artist: "致郑晞澜的生日祝福",
+                audio: audioPlayer,
+                color: "#e94560"
+            },
+            {
+                id: 2,
+                title: "生日快乐变奏曲",
+                artist: "经典生日旋律",
+                audio: birthdayMusic,
+                color: "#d4af37"
+            },
+            {
+                id: 3,
+                title: "美好的时光 (轻音乐)",
+                artist: "温馨背景音乐",
+                audio: lightMusic,
+                color: "#4cc9f0"
+            }
+        ];
+        
+        // 初始化音量
+        audioPlayer.volume = volumeSlider.value / 100;
+        birthdayMusic.volume = volumeSlider.value / 100;
+        lightMusic.volume = volumeSlider.value / 100;
+        
+        // 播放/暂停功能
+        function togglePlayPause() {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        }
+        
+        function playMusic() {
+            const currentAudio = tracks[currentTrack - 1].audio;
+            
+            // 暂停所有音频
+            tracks.forEach(track => track.audio.pause());
+            
+            // 播放当前音频
+            currentAudio.play()
+                .then(() => {
+                    isPlaying = true;
+                    playIcon.className = "fas fa-pause";
+                    playPauseBtn.classList.add('pulse-animation');
+                    heartbeatVisualizer.style.display = 'block';
+                    updateHeartbeatVisualizer();
+                })
+                .catch(error => {
+                    console.log("音频播放失败:", error);
+                    // 如果自动播放被阻止，显示提示
+                    alert("请点击播放按钮以开始音乐");
+                });
+        }
+        
+        function pauseMusic() {
+            tracks[currentTrack - 1].audio.pause();
+            isPlaying = false;
+            playIcon.className = "fas fa-play";
+            playPauseBtn.classList.remove('pulse-animation');
+            heartbeatVisualizer.style.display = 'none';
+        }
+        
+        // 切换曲目
+        function changeTrack(trackId) {
+            const wasPlaying = isPlaying;
+            
+            if (wasPlaying) {
+                pauseMusic();
+            }
+            
+            // 更新当前曲目
+            currentTrack = trackId;
+            
+            // 更新UI
+            musicTitle.textContent = tracks[trackId - 1].title;
+            musicArtist.textContent = tracks[trackId - 1].artist;
+            
+            // 更新播放列表高亮
+            playlistItems.forEach(item => {
+                if (parseInt(item.dataset.track) === trackId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // 更新心跳颜色
+            heartbeatLine.style.stroke = tracks[trackId - 1].color;
+            
+            // 如果之前正在播放，则播放新曲目
+            if (wasPlaying) {
+                setTimeout(() => {
+                    playMusic();
+                }, 300);
+            }
+        }
+        
+        // 上一曲
+        function prevTrack() {
+            let newTrack = currentTrack - 1;
+            if (newTrack < 1) newTrack = tracks.length;
+            changeTrack(newTrack);
+        }
+        
+        // 下一曲
+        function nextTrack() {
+            let newTrack = currentTrack + 1;
+            if (newTrack > tracks.length) newTrack = 1;
+            changeTrack(newTrack);
+        }
+        
+        // 更新音量
+        function updateVolume() {
+            const volume = volumeSlider.value / 100;
+            tracks.forEach(track => {
+                track.audio.volume = volume;
+            });
+        }
+        
+        // 更新心跳可视化
+        function updateHeartbeatVisualizer() {
+            if (!isPlaying) return;
+            
+            const currentAudio = tracks[currentTrack - 1].audio;
+            const currentTime = currentAudio.currentTime;
+            const duration = currentAudio.duration;
+            
+            // 创建心跳波形
+            let path = "M0,30 ";
+            const segments = 20;
+            
+            for (let i = 0; i <= segments; i++) {
+                const x = (i / segments) * 200;
+                const timePercent = (currentTime / duration) * 100;
+                const beat = Math.sin((currentTime * 10) + (i * 0.5)) * 15;
+                const y = 30 + beat;
+                
+                if (i === 0) {
+                    path += `L${x},${y} `;
+                } else {
+                    const prevX = ((i-1) / segments) * 200;
+                    const prevY = 30 + Math.sin((currentTime * 10) + ((i-1) * 0.5)) * 15;
+                    const cpX1 = prevX + 10;
+                    const cpY1 = prevY;
+                    const cpX2 = x - 10;
+                    const cpY2 = y;
+                    
+                    path += `C${cpX1},${cpY1} ${cpX2},${cpY2} ${x},${y} `;
+                }
+            }
+            
+            heartbeatLine.setAttribute('d', path);
+            
+            // 继续更新
+            requestAnimationFrame(updateHeartbeatVisualizer);
+        }
+        
+        // 事件监听
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        prevBtn.addEventListener('click', prevTrack);
+        nextBtn.addEventListener('click', nextTrack);
+        volumeSlider.addEventListener('input', updateVolume);
+        
+        playlistBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            playlistDropdown.classList.toggle('show');
+        });
+        
+        playlistItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const trackId = parseInt(this.dataset.track);
+                changeTrack(trackId);
+                playlistDropdown.classList.remove('show');
+            });
+        });
+        
+        // 点击页面其他地方关闭播放列表
+        document.addEventListener('click', function() {
+            playlistDropdown.classList.remove('show');
+        });
+        
+        // 防止播放列表点击事件冒泡
+        playlistDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
         // 创建粒子背景
         function createParticles() {
             const container = document.getElementById('particles');
@@ -615,7 +1126,23 @@
                     }, 200);
                 });
             });
+            
+            // 初始设置心跳颜色
+            heartbeatLine.style.stroke = tracks[0].color;
+            
+            // 自动播放音乐（带延迟，让用户有时间看到页面）
+            setTimeout(() => {
+                // 在移动设备上不自动播放，因为可能被阻止
+                if (!/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+                    playMusic();
+                }
+            }, 2000);
         });
+        
+        // 音频结束时自动播放下一曲
+        audioPlayer.addEventListener('ended', nextTrack);
+        birthdayMusic.addEventListener('ended', nextTrack);
+        lightMusic.addEventListener('ended', nextTrack);
     </script>
 </body>
 </html>
