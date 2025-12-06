@@ -53,51 +53,6 @@
             pointer-events: none;
         }
         
-        /* 星星样式 */
-        .star {
-            position: absolute;
-            background-color: var(--star-color);
-            border-radius: 50%;
-            animation: twinkle 3s infinite alternate ease-in-out;
-            box-shadow: 0 0 6px rgba(255, 249, 196, 0.8);
-        }
-        
-        /* 数字星星容器 */
-        .number-stars {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .number-container {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .number-2 {
-            left: 20%;
-        }
-        
-        .number-0 {
-            right: 20%;
-        }
-        
-        .number-star {
-            position: absolute;
-            background-color: var(--gold-color);
-            border-radius: 50%;
-            animation: numberStarTwinkle 4s infinite alternate ease-in-out;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-        }
-        
         /* 背景装饰元素 */
         .background-elements {
             position: fixed;
@@ -115,6 +70,15 @@
             border-radius: 50%;
             background: rgba(212, 175, 55, 0.05);
             backdrop-filter: blur(5px);
+        }
+        
+        /* 小星星样式 */
+        .star {
+            position: absolute;
+            background-color: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate ease-in-out;
+            box-shadow: 0 0 6px rgba(255, 249, 196, 0.8);
         }
         
         /* 标题区域 */
@@ -353,52 +317,13 @@
             }
         }
         
-        @keyframes numberStarTwinkle {
-            0%, 100% {
-                opacity: 0.6;
-                transform: scale(1);
-                box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-                box-shadow: 0 0 15px rgba(212, 175, 55, 1);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         @keyframes float {
             0%, 100% {
-                transform: translateY(0);
+                transform: translateY(0) rotate(0deg);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-20px) rotate(180deg);
             }
-        }
-        
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .float-animation {
-            animation: float 5s ease-in-out infinite;
         }
     </style>
 </head>
@@ -406,80 +331,67 @@
     <!-- 星空背景 -->
     <div class="starfield" id="starfield"></div>
     
-    <!-- 数字星星 -->
-    <div class="number-stars">
-        <div class="number-container number-2" id="number-2"></div>
-        <div class="number-container number-0" id="number-0"></div>
-    </div>
-    
     <!-- 背景装饰元素 -->
-    <div class="background-elements">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-    </div>
+    <div class="background-elements" id="background-elements"></div>
     
     <div class="container">
         <!-- 标题区域 -->
-        <section class="header-section">
-            <div class="birthday-subtitle">CELEBRATING A SPECIAL DAY</div>
-            <h1 class="birthday-title">生日快乐</h1>
-            <div class="honoree-name float-animation">郑晞澜</div>
-            <div class="birthday-subtitle">愿这特别的一天充满喜悦与美好</div>
-        </section>
+        <div class="header-section">
+            <div class="birthday-subtitle">Happy Birthday</div>
+            <h1 class="birthday-title">生日祝福</h1>
+            <div class="honoree-name">郑晞澜</div>
+        </div>
         
         <!-- 主要内容区域 -->
-        <section class="content-section">
-            <div class="message-card animate-on-scroll">
-                <h2 class="message-title">诚挚祝福</h2>
+        <div class="content-section">
+            <div class="message-card">
+                <h2 class="message-title">亲爱的晞澜</h2>
                 <div class="message-content">
-                    <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
-                    <p>愿你的人生如诗如画，每一个梦想都能绽放光芒，每一次努力都能收获喜悦。</p>
-                    <p>岁月悠长，愿你始终怀揣梦想，保持热爱；时光静好，愿你永远被温柔以待，幸福安康。</p>
-                    <p>新的一岁，愿你继续闪耀，成为自己想成为的人，抵达向往的远方。</p>
+                    <p>在这个特别的日子里，愿所有的星星都为你闪耀，愿所有的祝福都为你汇聚。</p>
+                    <p>时光荏苒，岁月如歌，你的生日是一首美妙的旋律，愿这首旋律永远悠扬动听。</p>
+                    <p>愿你的每一天都充满阳光，愿你的每一步都走向幸福，愿你的梦想如星辰般璀璨。</p>
+                    <p>生活中的每一个瞬间都值得珍藏，愿你珍藏所有的美好，忘却所有的烦恼。</p>
                 </div>
             </div>
             
-            <div class="message-card animate-on-scroll">
-                <h2 class="message-title">美好祈愿</h2>
+            <div class="message-card">
+                <h2 class="message-title">生日祝福</h2>
                 <div class="message-content">
-                    <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
-                    <p>愿生活赠你以温柔，时光待你以宽容，未来许你以辉煌。</p>
-                    <p>在这特别的日子里，愿所有美好的事物都向你涌来，所有的期盼都能如愿以偿。</p>
-                    <p>愿你的世界永远明媚如春，愿你的人生永远绚烂如夏。</p>
+                    <p>愿你的笑容如初阳般温暖，愿你的心境如星空般宁静，愿你的生活如诗歌般优美。</p>
+                    <p>每一颗星星都代表一个美好的愿望，今晚的星空为你而亮，所有的愿望都将实现。</p>
+                    <p>愿健康常伴你左右，愿快乐永驻你心间，愿成功紧随你脚步，愿幸福环绕你身旁。</p>
+                    <p>在这个属于你的日子里，愿你能感受到世界上最真挚的祝福和最温暖的关怀。</p>
                 </div>
             </div>
-        </section>
+        </div>
         
         <!-- 签名区域 -->
-        <section class="signature-section animate-on-scroll">
+        <div class="signature-section">
             <div class="closing-message">
-                谨以此页表达最真挚的祝福。愿你的新一岁充满无限可能，每一天都比前一天更加精彩。
+                愿这特别的祝福能像夜空中的星星，照亮你前进的道路，温暖你心灵的每一个角落。
+                愿新的一岁带给你无尽的惊喜与美好，愿你的生命之树常青，愿你的幸福之花永开。
             </div>
-            <div class="signature">祝你生日快乐</div>
-            <div class="closing-message">
-                愿时光温柔以待，愿岁月永不蹉跎<br>
-                愿所有的美好都如期而至
-            </div>
-        </section>
+            <div class="signature">最美好的祝愿</div>
+        </div>
         
-        <!-- 页脚 -->
-        <footer class="footer">
-            <p>一份特别的生日祝福 · 衷心祝愿郑晞澜生日快乐</p>
-        </footer>
+        <!-- 页面底部 -->
+        <div class="footer">
+            <p>谨以此页面表达最真挚的生日祝福 | 设计于2024年</p>
+        </div>
     </div>
 
     <script>
-        // 创建背景小星星
-        function createBackgroundStars() {
+        // 创建星空背景
+        function createStarfield() {
             const starfield = document.getElementById('starfield');
-            const starCount = 30;
+            const starCount = 150;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 
-                // 随机大小 (1-3px)
-                const size = Math.random() * 2 + 1;
+                // 随机大小
+                const size = Math.random() * 3 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
@@ -487,250 +399,44 @@
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
                 
-                // 随机动画延迟
-                const delay = Math.random() * 5;
-                star.style.animationDelay = `${delay}s`;
-                
-                // 随机颜色变化
-                const brightness = Math.random() * 0.5 + 0.3;
-                star.style.backgroundColor = `rgba(255, 249, 196, ${brightness})`;
+                // 随机闪烁延迟
+                star.style.animationDelay = `${Math.random() * 3}s`;
                 
                 starfield.appendChild(star);
             }
         }
         
-        // 创建数字2的星星
-        function createNumber2() {
-            const number2Container = document.getElementById('number-2');
+        // 创建背景装饰元素
+        function createBackgroundElements() {
+            const bgElements = document.getElementById('background-elements');
+            const elementCount = 15;
             
-            // 数字2的坐标点（10个点组成数字2的形状）
-            const points = [
-                // 顶部横线
-                {x: 0, y: 0},
-                {x: 0.33, y: 0},
-                {x: 0.66, y: 0},
-                {x: 1, y: 0},
-                
-                // 中间斜线
-                {x: 1, y: 0.33},
-                {x: 0.66, y: 0.66},
-                {x: 0.33, y: 0.33},
-                
-                // 底部横线
-                {x: 0, y: 1},
-                {x: 0.33, y: 1},
-                {x: 0.66, y: 1},
-                {x: 1, y: 1}
-            ];
-            
-            // 为数字2添加星星
-            points.forEach((point, index) => {
-                const star = document.createElement('div');
-                star.className = 'number-star';
-                
-                // 数字2的星星稍大一些 (5-7px)
-                const size = 6 + Math.random();
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                // 根据坐标点定位，数字2在左侧
-                // 将0-1的坐标转换为实际位置
-                const left = point.x * 80 - 40; // -40到40px范围
-                const top = point.y * 100 - 50; // -50到50px范围
-                
-                star.style.left = `${left}px`;
-                star.style.top = `${top}px`;
-                
-                // 随机动画延迟
-                const delay = index * 0.2 + Math.random() * 0.5;
-                star.style.animationDelay = `${delay}s`;
-                
-                // 随机颜色深浅
-                const brightness = 0.7 + Math.random() * 0.3;
-                star.style.backgroundColor = `rgba(212, 175, 55, ${brightness})`;
-                
-                number2Container.appendChild(star);
-            });
-        }
-        
-        // 创建数字0的星星
-        function createNumber0() {
-            const number0Container = document.getElementById('number-0');
-            
-            // 数字0的坐标点（12个点组成圆形）
-            const points = [];
-            const centerX = 0.5;
-            const centerY = 0.5;
-            const radius = 0.4;
-            const pointCount = 12;
-            
-            for (let i = 0; i < pointCount; i++) {
-                const angle = (i / pointCount) * 2 * Math.PI;
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
-                points.push({x, y});
-            }
-            
-            // 为数字0添加星星
-            points.forEach((point, index) => {
-                const star = document.createElement('div');
-                star.className = 'number-star';
-                
-                // 数字0的星星稍大一些 (5-7px)
-                const size = 6 + Math.random();
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                
-                // 根据坐标点定位，数字0在右侧
-                // 将0-1的坐标转换为实际位置
-                const left = point.x * 80 - 40; // -40到40px范围
-                const top = point.y * 100 - 50; // -50到50px范围
-                
-                star.style.left = `${left}px`;
-                star.style.top = `${top}px`;
-                
-                // 随机动画延迟
-                const delay = index * 0.2 + Math.random() * 0.5;
-                star.style.animationDelay = `${delay}s`;
-                
-                // 随机颜色深浅
-                const brightness = 0.7 + Math.random() * 0.3;
-                star.style.backgroundColor = `rgba(212, 175, 55, ${brightness})`;
-                
-                number0Container.appendChild(star);
-            });
-        }
-        
-        // 滚动动画触发
-        function initScrollAnimations() {
-            const elements = document.querySelectorAll('.animate-on-scroll');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-            
-            elements.forEach(element => {
-                observer.observe(element);
-            });
-        }
-        
-        // 添加随机漂浮元素
-        function addFloatingElements() {
-            const bgElements = document.querySelector('.background-elements');
-            
-            // 移除已有的两个固定元素
-            while (bgElements.firstChild) {
-                bgElements.removeChild(bgElements.firstChild);
-            }
-            
-            // 添加新的随机元素
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < elementCount; i++) {
                 const element = document.createElement('div');
                 element.className = 'floating-element';
                 
-                // 随机大小和位置
-                const size = Math.random() * 100 + 30;
+                // 随机大小
+                const size = Math.random() * 200 + 50;
                 element.style.width = `${size}px`;
                 element.style.height = `${size}px`;
                 
-                // 避免遮挡主要内容
+                // 随机位置
                 element.style.left = `${Math.random() * 100}%`;
-                element.style.top = `${20 + Math.random() * 60}%`;
-                
-                // 随机背景
-                const colors = [
-                    'radial-gradient(circle, rgba(233, 69, 96, 0.02) 0%, transparent 70%)',
-                    'radial-gradient(circle, rgba(212, 175, 55, 0.015) 0%, transparent 70%)',
-                    'radial-gradient(circle, rgba(255, 255, 255, 0.008) 0%, transparent 70%)'
-                ];
-                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                element.style.top = `${Math.random() * 100}%`;
                 
                 // 随机动画
-                const duration = Math.random() * 15 + 10;
-                const delay = Math.random() * 5;
-                element.style.animation = `float ${duration}s ease-in-out infinite ${delay}s`;
+                const duration = Math.random() * 20 + 20;
+                element.style.animation = `float ${duration}s infinite ease-in-out`;
+                element.style.animationDelay = `${Math.random() * 10}s`;
                 
                 bgElements.appendChild(element);
             }
         }
         
         // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            createBackgroundStars();
-            createNumber2();
-            createNumber0();
-            addFloatingElements();
-            initScrollAnimations();
-            
-            // 添加消息卡片悬停效果
-            document.querySelectorAll('.message-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                });
-            });
-            
-            // 添加数字星星的点击效果
-            document.querySelectorAll('.number-star').forEach(star => {
-                star.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.5)';
-                    this.style.opacity = '0.8';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                        this.style.opacity = '';
-                    }, 300);
-                });
-            });
-            
-            // 添加一些额外的背景星星
-            setTimeout(() => {
-                const starfield = document.getElementById('starfield');
-                for (let i = 0; i < 15; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    
-                    // 随机大小
-                    const size = Math.random() * 2 + 1;
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    
-                    // 随机位置
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    
-                    const delay = Math.random() * 5;
-                    star.style.animationDelay = `${delay}s`;
-                    
-                    starfield.appendChild(star);
-                }
-            }, 2000);
-            
-            // 让数字星星有轻微的随机移动效果
-            setInterval(() => {
-                document.querySelectorAll('.number-star').forEach((star, index) => {
-                    const currentLeft = parseFloat(star.style.left) || 0;
-                    const currentTop = parseFloat(star.style.top) || 0;
-                    
-                    // 轻微的随机移动
-                    const newLeft = currentLeft + (Math.random() * 4 - 2);
-                    const newTop = currentTop + (Math.random() * 4 - 2);
-                    
-                    star.style.left = `${newLeft}px`;
-                    star.style.top = `${newTop}px`;
-                });
-            }, 3000);
+        window.addEventListener('DOMContentLoaded', () => {
+            createStarfield();
+            createBackgroundElements();
         });
     </script>
 </body>
