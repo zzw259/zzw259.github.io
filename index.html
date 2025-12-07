@@ -302,39 +302,35 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px 40px;
+            padding: 40px;
         }
         
         .flip-card-front {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
         
         .flip-card-back {
             transform: rotateY(180deg);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
         
         .flip-card-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.2rem;
             color: var(--gold-color);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             position: relative;
             display: inline-block;
-            text-align: center;
         }
         
         .flip-card-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
+            bottom: -8px;
+            left: 0;
+            width: 100px;
             height: 2px;
             background-color: var(--accent-color);
         }
@@ -344,25 +340,33 @@
             color: var(--text-light);
             line-height: 1.8;
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            overflow-y: auto;
+            padding-right: 10px;
         }
         
         .flip-card-content p {
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 25px;
-            text-align: center;
+            margin-bottom: 15px;
+            text-align: justify;
         }
         
-        .flip-card-content p::before {
-            content: '❀';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            line-height: 1;
+        .flip-card-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .flip-card-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .flip-card-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
+        
+        /* 背面内容特殊样式 */
+        .flip-card-back .flip-card-content p {
+            margin-bottom: 15px;
+            text-align: left;
         }
         
         /* 翻转按钮 */
@@ -417,19 +421,6 @@
         
         .flip-button:hover .flip-button-label {
             opacity: 1;
-        }
-        
-        /* 卡片指示器 */
-        .card-indicator {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         /* 签名区域 */
@@ -576,29 +567,32 @@
         <!-- 3D翻转卡片 -->
         <section class="flip-card-container animate-on-scroll">
             <div class="flip-card" id="flipCard">
-                <!-- 卡片正面：诚挚祝福 -->
+                <!-- 卡片正面：致二十岁的你 -->
                 <div class="flip-card-front">
                     <div class="card-glow"></div>
-                    <div class="card-indicator">正面 · 诚挚祝福</div>
-                    <h2 class="flip-card-title">诚挚祝福</h2>
+                    <h2 class="flip-card-title">致二十岁的你：</h2>
                     <div class="flip-card-content">
-                        <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
-                        <p>愿你的人生如诗如画，每一个梦想都能绽放光芒，每一次努力都能收获喜悦。</p>
-                        <p>岁月悠长，愿你始终怀揣梦想，保持热爱；时光静好，愿你永远被温柔以待，幸福安康。</p>
-                        <p>新的一岁，愿你继续闪耀，成为自己想成为的人，抵达向往的远方。</p>
+                        <p>二十岁，是星辰开始自己排列轨迹的年纪——愿你眼眸永远亮着好奇的光，脚步始终朝着向往的方向。</p>
+                        <p>愿你的二十岁，如春日初绽的花朵，充满生机与希望；如夏日清晨的阳光，温暖而不炽热。</p>
+                        <p>愿你在探索世界的旅途中，既能欣赏沿途风景，也不忘内心方向；既有追逐梦想的勇气，也有接受不完美的从容。</p>
+                        <p>二十岁的你，站在人生的新起点，前方有无限可能。愿你勇敢尝试，不畏失败；愿你保持本真，不忘初心；愿你被世界温柔以待，也温柔对待这个世界。</p>
+                        <p>生日快乐，二十岁的郑晞澜。愿这一岁，成为你人生中最精彩的一章。</p>
                     </div>
                 </div>
                 
-                <!-- 卡片背面：美好祈愿 -->
+                <!-- 卡片背面：悄悄话空间 -->
                 <div class="flip-card-back">
                     <div class="card-glow"></div>
-                    <div class="card-indicator">背面 · 美好祈愿</div>
-                    <h2 class="flip-card-title">美好祈愿</h2>
+                    <h2 class="flip-card-title">好了这里就是悄悄话空间了：</h2>
                     <div class="flip-card-content">
-                        <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
-                        <p>愿生活赠你以温柔，时光待你以宽容，未来许你以辉煌。</p>
-                        <p>在这特别的日子里，愿所有美好的事物都向你涌来，所有的期盼都能如愿以偿。</p>
-                        <p>愿你的世界永远明媚如春，愿你的人生永远绚烂如夏。</p>
+                        <p>本来没打算做这个的，鬼知道你突然改生日时间了，我也刚好就刷到了怎么做网页的视频了，就拿你生日试试水了。</p>
+                        <p>你知道用ai做这个我有多崩溃吗，我本来打算在背景里加一点星空做点缀的，但是那个ai像是没见过星星一样，做的非常难绷，所以在我尝试了3小时后我放弃了做星空。然后我又打算在背景里加点音乐，想加那个遗失的心跳，然后捣鼓了3小时发现它始终播放不了，最后我也没招了，就生成了现在这个版本了。</p>
+                        <p>哎有些话我也不知道能不能说，就当悄悄话一起说了吧。我感觉你这人挺神奇的，和你说话不像和其他女生那样需要端着，简称就是想骂就骂一点不含糊，反而更自然了点。但是你让我最舒服的点在于，我不需要去猜你的情绪点在哪，你有火会说，会骂，但不是憋着藏着让我去猜，哎要是我会猜得到也不会到现在这样了。</p>
+                        <p>其实我有时候也会想为什么能和你说这么多东西，或者说，为什么是你。或许是从你那句和我没有壁开始的吧。对于我而言，关系的确定需要明确的言语，如同情侣需要表白，夫妻需要婚礼一般，而你这句话对我而言和宣告了我是你好朋友？无疑了，其实当时挺震惊的，因为没有经历过（女生）。</p>
+                        <p>emmmm还有就是，有人问过我喜不喜欢你，前段时间其实我也想过这个问题。如实说，xkl离开后，你在我心里的位置逐渐取代了她，但对于喜不喜欢这一点，其实我也不懂，就很神奇。我对你确实没有对xkl的那种，额，追求感？你也知道我喜欢一个人的样子有多癫。但是对于朋友而言感觉我对你的占有欲过高了点？我也不知道算不算正常。但话又说回来了，就目前而言，或许会适配？（bushi）</p>
+                        <p>这问题其实我也想挺久的了，看看小红书上面关于纯友谊的话题评论区总是两极分化，我也是越来越搞不懂了，现阶段我也只能定义成 重要的人 了。</p>
+                        <p>好了你就当我是喝了点强爽乱说话吧。（敢给别人看砍死你）</p>
+                        <p>总之生日快乐</p>
                     </div>
                 </div>
                 
@@ -823,6 +817,33 @@
             flipCard.addEventListener('mouseleave', function() {
                 this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
             });
+            
+            // 自动调整卡片高度以适应内容
+            setTimeout(() => {
+                const flipCardContent = document.querySelectorAll('.flip-card-content');
+                let maxHeight = 0;
+                
+                flipCardContent.forEach(content => {
+                    if (content.scrollHeight > maxHeight) {
+                        maxHeight = content.scrollHeight;
+                    }
+                });
+                
+                // 如果内容高度超过容器，增加容器高度
+                if (maxHeight > 350) {
+                    const cardContainer = document.querySelector('.flip-card-container');
+                    const newHeight = 500 + (maxHeight - 350);
+                    cardContainer.style.height = `${newHeight}px`;
+                    
+                    // 调整响应式高度
+                    if (window.innerWidth <= 768) {
+                        cardContainer.style.height = `${newHeight + 50}px`;
+                    }
+                    if (window.innerWidth <= 480) {
+                        cardContainer.style.height = `${newHeight + 100}px`;
+                    }
+                }
+            }, 100);
         });
     </script>
 </body>
