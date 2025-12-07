@@ -289,7 +289,7 @@
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             border-radius: 20px;
-            cursor: pointer;
+            cursor: default;
         }
         
         .flip-card.flipped {
@@ -463,30 +463,30 @@
         /* 蜡烛 */
         .candle {
             position: absolute;
-            top: -30px;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
-            width: 10px;
-            height: 40px;
+            width: 8px;
+            height: 25px;
             background: var(--candle);
-            border-radius: 5px 5px 0 0;
+            border-radius: 4px 4px 0 0;
             z-index: 4;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
         }
         
         /* 蜡烛火焰 */
         .flame {
             position: absolute;
-            top: -45px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            width: 15px;
-            height: 25px;
+            width: 12px;
+            height: 20px;
             background: linear-gradient(to bottom, #ffd700, #ff4500);
             border-radius: 50% 50% 20% 20%;
             animation: flicker 1.5s infinite alternate;
             z-index: 5;
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.7);
         }
         
         @keyframes flicker {
@@ -508,11 +508,11 @@
         /* 火焰光晕 */
         .flame-glow {
             position: absolute;
-            top: -50px;
+            bottom: 75px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
             border-radius: 50%;
             z-index: 4;
@@ -764,7 +764,7 @@
                         <p>愿你的二十岁，如春日初绽的花朵，充满生机与希望；如夏日清晨的阳光，温暖而不炽热。</p>
                         <p>愿你在探索世界的旅途中，既能欣赏沿途风景，也不忘内心方向；既有追逐梦想的勇气，也有接受不完美的从容。</p>
                         <p>二十岁的你，站在人生的新起点，前方有无限可能。愿你勇敢尝试，不畏失败；愿你保持本真，不忘初心；愿你被世界温柔以待，也温柔对待这个世界。</p>
-                        <p>生日快乐，二十岁的郑晞澜。愿这一岁，成为你人生中最精彩的一章。</p>
+                        <p>生日快乐，愿这一岁，成为你人生中最精彩的一章。</p>
                     </div>
                     
                     <!-- 生日蛋糕 -->
@@ -987,19 +987,14 @@
             const flipCard = document.getElementById('flipCard');
             const flipButton = document.getElementById('flipButton');
             
-            // 点击按钮翻转卡片
+            // 只允许点击按钮翻转卡片
             flipButton.addEventListener('click', function(e) {
                 e.stopPropagation();
                 flipCard.classList.toggle('flipped');
             });
             
-            // 点击卡片其他区域也可以翻转
-            flipCard.addEventListener('click', function(e) {
-                // 确保点击的不是按钮区域
-                if (!e.target.closest('.flip-button')) {
-                    flipCard.classList.toggle('flipped');
-                }
-            });
+            // 移除卡片点击翻转事件，只保留按钮点击翻转
+            // 不添加卡片点击事件，这样只有按钮可以翻转卡片
             
             // 添加键盘支持
             document.addEventListener('keydown', function(e) {
