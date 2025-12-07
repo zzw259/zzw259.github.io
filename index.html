@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>郑晞澜 | 生日祝福</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #1a1a2e;
@@ -14,6 +15,8 @@
             --light-color: #f5f5f5;
             --text-light: #e6e6e6;
             --text-muted: #b0b0b0;
+            --star-color: rgba(255, 255, 255, 0.8);
+            --star-glow: rgba(255, 255, 200, 0.9);
         }
         
         * {
@@ -72,6 +75,88 @@
             bottom: -100px;
             left: -100px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+        
+        /* 星星样式 */
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--star-color);
+            box-shadow: 0 0 6px var(--star-glow);
+            z-index: -1;
+        }
+        
+        .star::before, .star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: inherit;
+        }
+        
+        .star::before {
+            width: 150%;
+            height: 150%;
+            opacity: 0.4;
+            filter: blur(1px);
+        }
+        
+        .star::after {
+            width: 70%;
+            height: 70%;
+            opacity: 0.7;
+            filter: blur(0.5px);
+        }
+        
+        /* 星光动画 */
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.8); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2); 
+            }
+        }
+        
+        @keyframes twinkleSlow {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: scale(0.9); 
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scale(1.1); 
+            }
+        }
+        
+        @keyframes twinkleVerySlow {
+            0%, 100% { 
+                opacity: 0.1; 
+                transform: scale(0.95); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.05); 
+            }
+        }
+        
+        @keyframes floatStar {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(0) rotate(180deg);
+            }
+            75% {
+                transform: translateY(10px) rotate(270deg);
+            }
         }
         
         /* 标题区域 */
@@ -170,82 +255,181 @@
             }
         }
         
-        /* 主要内容区域 */
-        .content-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin: 40px 0;
+        /* 3D翻转卡片区域 */
+        .flip-card-container {
+            perspective: 1500px;
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            margin: 40px auto;
+            position: relative;
         }
         
         @media (max-width: 768px) {
-            .content-section {
-                flex-direction: column;
-                gap: 30px;
+            .flip-card-container {
+                height: 550px;
             }
         }
         
-        .message-card {
-            flex: 1;
-            min-width: 300px;
+        @media (max-width: 480px) {
+            .flip-card-container {
+                height: 600px;
+            }
+        }
+        
+        .flip-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            padding: 50px 40px;
         }
         
-        .message-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .flip-card-front {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
-        @media (max-width: 768px) {
-            .message-card {
-                padding: 30px 25px;
-            }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
-        .message-title {
+        .flip-card-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--gold-color);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
             display: inline-block;
+            text-align: center;
         }
         
-        .message-title::after {
+        .flip-card-title::after {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
             height: 2px;
             background-color: var(--accent-color);
         }
         
-        .message-content {
+        .flip-card-content {
             font-size: 1.1rem;
             color: var(--text-light);
             line-height: 1.8;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
-        .message-content p {
+        .flip-card-content p {
             margin-bottom: 20px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 25px;
+            text-align: center;
         }
         
-        .message-content p::before {
-            content: '•';
+        .flip-card-content p::before {
+            content: '❀';
             position: absolute;
             left: 0;
             color: var(--accent-color);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             line-height: 1;
+        }
+        
+        /* 翻转按钮 */
+        .flip-button {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--gold-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .flip-button:hover {
+            background: rgba(212, 175, 55, 0.3);
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .flip-button i {
+            transition: transform 0.5s ease;
+        }
+        
+        .flip-card.flipped .flip-button i {
+            transform: rotate(180deg);
+        }
+        
+        .flip-button-label {
+            position: absolute;
+            bottom: 60px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: var(--gold-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        
+        .flip-button:hover .flip-button-label {
+            opacity: 1;
+        }
+        
+        /* 卡片指示器 */
+        .card-indicator {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         /* 签名区域 */
@@ -352,6 +536,19 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             margin-top: 40px;
         }
+        
+        /* 卡片边缘光效 */
+        .card-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -364,6 +561,9 @@
     <!-- 装饰点 -->
     <div class="decorative-elements" id="decorative-elements"></div>
     
+    <!-- 星星容器 -->
+    <div class="stars-container" id="stars-container"></div>
+    
     <div class="container">
         <!-- 标题区域 -->
         <section class="header-section">
@@ -373,26 +573,40 @@
             <div class="birthday-subtitle">愿这特别的一天充满喜悦与美好</div>
         </section>
         
-        <!-- 主要内容区域 -->
-        <section class="content-section">
-            <div class="message-card animate-on-scroll">
-                <h2 class="message-title">诚挚祝福</h2>
-                <div class="message-content">
-                    <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
-                    <p>愿你的人生如诗如画，每一个梦想都能绽放光芒，每一次努力都能收获喜悦。</p>
-                    <p>岁月悠长，愿你始终怀揣梦想，保持热爱；时光静好，愿你永远被温柔以待，幸福安康。</p>
-                    <p>新的一岁，愿你继续闪耀，成为自己想成为的人，抵达向往的远方。</p>
+        <!-- 3D翻转卡片 -->
+        <section class="flip-card-container animate-on-scroll">
+            <div class="flip-card" id="flipCard">
+                <!-- 卡片正面：诚挚祝福 -->
+                <div class="flip-card-front">
+                    <div class="card-glow"></div>
+                    <div class="card-indicator">正面 · 诚挚祝福</div>
+                    <h2 class="flip-card-title">诚挚祝福</h2>
+                    <div class="flip-card-content">
+                        <p>在这个特别的日子里，愿所有的幸福、所有的快乐、所有的温馨、所有的好运都围绕在你身边。</p>
+                        <p>愿你的人生如诗如画，每一个梦想都能绽放光芒，每一次努力都能收获喜悦。</p>
+                        <p>岁月悠长，愿你始终怀揣梦想，保持热爱；时光静好，愿你永远被温柔以待，幸福安康。</p>
+                        <p>新的一岁，愿你继续闪耀，成为自己想成为的人，抵达向往的远方。</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="message-card animate-on-scroll">
-                <h2 class="message-title">美好祈愿</h2>
-                <div class="message-content">
-                    <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
-                    <p>愿生活赠你以温柔，时光待你以宽容，未来许你以辉煌。</p>
-                    <p>在这特别的日子里，愿所有美好的事物都向你涌来，所有的期盼都能如愿以偿。</p>
-                    <p>愿你的世界永远明媚如春，愿你的人生永远绚烂如夏。</p>
+                
+                <!-- 卡片背面：美好祈愿 -->
+                <div class="flip-card-back">
+                    <div class="card-glow"></div>
+                    <div class="card-indicator">背面 · 美好祈愿</div>
+                    <h2 class="flip-card-title">美好祈愿</h2>
+                    <div class="flip-card-content">
+                        <p>愿你的每一天都充满阳光和欢笑，每一步都走得坚定而从容。</p>
+                        <p>愿生活赠你以温柔，时光待你以宽容，未来许你以辉煌。</p>
+                        <p>在这特别的日子里，愿所有美好的事物都向你涌来，所有的期盼都能如愿以偿。</p>
+                        <p>愿你的世界永远明媚如春，愿你的人生永远绚烂如夏。</p>
+                    </div>
                 </div>
+                
+                <!-- 翻转按钮 -->
+                <button class="flip-button" id="flipButton">
+                    <i class="fas fa-sync-alt"></i>
+                    <span class="flip-button-label">翻转卡片</span>
+                </button>
             </div>
         </section>
         
@@ -415,6 +629,64 @@
     </div>
 
     <script>
+        // 创建星星
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 30; // 星星数量，可以根据需要调整
+            
+            // 星星可能的颜色
+            const starColors = [
+                'rgba(255, 255, 255, 0.9)',      // 白色
+                'rgba(255, 255, 200, 0.9)',      // 淡黄色
+                'rgba(212, 175, 55, 0.8)',       // 金色
+                'rgba(233, 69, 96, 0.7)',        // 粉色/红色
+                'rgba(255, 255, 255, 0.7)'       // 半透明白色
+            ];
+            
+            // 动画类型
+            const animations = ['twinkle', 'twinkleSlow', 'twinkleVerySlow'];
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机大小 (1-5像素)
+                const size = Math.random() * 4 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colorIndex = Math.floor(Math.random() * starColors.length);
+                star.style.backgroundColor = starColors[colorIndex];
+                
+                // 随机动画
+                const animationIndex = Math.floor(Math.random() * animations.length);
+                const animation = animations[animationIndex];
+                const duration = Math.random() * 5 + 3; // 3-8秒
+                const delay = Math.random() * 5; // 0-5秒延迟
+                
+                // 应用动画
+                star.style.animation = `${animation} ${duration}s ease-in-out ${delay}s infinite`;
+                
+                // 30%的星星有额外的浮动动画
+                if (Math.random() > 0.7) {
+                    const floatDuration = Math.random() * 20 + 15; // 15-35秒
+                    star.style.animation += `, floatStar ${floatDuration}s ease-in-out ${delay}s infinite`;
+                }
+                
+                // 添加一些星星有不同大小的光晕
+                if (Math.random() > 0.5) {
+                    star.style.boxShadow = `0 0 ${Math.random() * 8 + 4}px ${starColors[colorIndex]}`;
+                }
+                
+                container.appendChild(star);
+            }
+        }
+        
         // 创建装饰点
         function createDecorativeElements() {
             const container = document.getElementById('decorative-elements');
@@ -507,33 +779,49 @@
             }
         }
         
+        // 翻转卡片功能
+        function initFlipCard() {
+            const flipCard = document.getElementById('flipCard');
+            const flipButton = document.getElementById('flipButton');
+            
+            // 点击按钮翻转卡片
+            flipButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                flipCard.classList.toggle('flipped');
+            });
+            
+            // 点击卡片其他区域也可以翻转
+            flipCard.addEventListener('click', function(e) {
+                // 确保点击的不是按钮区域
+                if (!e.target.closest('.flip-button')) {
+                    flipCard.classList.toggle('flipped');
+                }
+            });
+            
+            // 添加键盘支持
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space' || e.code === 'Enter') {
+                    flipCard.classList.toggle('flipped');
+                }
+            });
+        }
+        
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             createDecorativeElements();
+            createStars(); // 创建星星
             addFloatingElements();
             initScrollAnimations();
+            initFlipCard(); // 初始化翻转卡片
             
-            // 添加消息卡片悬停效果
-            document.querySelectorAll('.message-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                });
+            // 添加卡片悬停效果
+            const flipCard = document.getElementById('flipCard');
+            flipCard.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4)';
             });
             
-            // 添加点击效果
-            document.querySelectorAll('.message-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.99)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
+            flipCard.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
             });
         });
     </script>
