@@ -17,6 +17,10 @@
             --text-muted: #b0b0b0;
             --star-color: rgba(255, 255, 255, 0.8);
             --star-glow: rgba(255, 255, 200, 0.9);
+            --cake-base: #f8e9d4;
+            --cake-frosting: #f5f0e8;
+            --cake-decor: #e94560;
+            --candle: #d4af37;
         }
         
         * {
@@ -260,20 +264,20 @@
             perspective: 1500px;
             width: 100%;
             max-width: 800px;
-            height: 500px;
+            height: 650px;
             margin: 40px auto;
             position: relative;
         }
         
         @media (max-width: 768px) {
             .flip-card-container {
-                height: 550px;
+                height: 700px;
             }
         }
         
         @media (max-width: 480px) {
             .flip-card-container {
-                height: 600px;
+                height: 750px;
             }
         }
         
@@ -342,6 +346,7 @@
             flex-grow: 1;
             overflow-y: auto;
             padding-right: 10px;
+            margin-bottom: 20px;
         }
         
         .flip-card-content p {
@@ -367,6 +372,189 @@
         .flip-card-back .flip-card-content p {
             margin-bottom: 15px;
             text-align: left;
+        }
+        
+        /* 生日蛋糕设计 */
+        .cake-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: auto;
+            height: 180px;
+            position: relative;
+        }
+        
+        .birthday-cake {
+            position: relative;
+            width: 200px;
+            height: 150px;
+        }
+        
+        /* 蛋糕底层 */
+        .cake-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 60px;
+            background: var(--cake-base);
+            border-radius: 80px 80px 10px 10px;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 -10px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        /* 蛋糕顶层 */
+        .cake-top {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 50px;
+            background: var(--cake-frosting);
+            border-radius: 60px 60px 10px 10px;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 -8px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        /* 蛋糕奶油装饰 */
+        .frosting {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: var(--cake-frosting);
+            border-radius: 50%;
+        }
+        
+        .frosting-top {
+            top: -10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 蛋糕装饰点 */
+        .cake-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+        
+        .cake-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--cake-decor);
+            box-shadow: 0 0 5px rgba(233, 69, 96, 0.5);
+        }
+        
+        .cake-dot:nth-child(1) { top: 15px; left: 30px; }
+        .cake-dot:nth-child(2) { top: 25px; right: 40px; }
+        .cake-dot:nth-child(3) { top: 40px; left: 50px; }
+        .cake-dot:nth-child(4) { top: 50px; right: 30px; }
+        .cake-dot:nth-child(5) { bottom: 20px; left: 40px; }
+        .cake-dot:nth-child(6) { bottom: 30px; right: 50px; }
+        
+        /* 蜡烛 */
+        .candle {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 40px;
+            background: var(--candle);
+            border-radius: 5px 5px 0 0;
+            z-index: 4;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* 蜡烛火焰 */
+        .flame {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 25px;
+            background: linear-gradient(to bottom, #ffd700, #ff4500);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1.5s infinite alternate;
+            z-index: 5;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
+        }
+        
+        @keyframes flicker {
+            0%, 100% { 
+                transform: translateX(-50%) scale(1); 
+                opacity: 0.9;
+            }
+            25% { 
+                transform: translateX(-50%) scale(0.95) translateX(1px); 
+            }
+            50% { 
+                transform: translateX(-50%) scale(1.05) translateX(-1px); 
+            }
+            75% { 
+                transform: translateX(-50%) scale(0.98) translateX(1px); 
+            }
+        }
+        
+        /* 火焰光晕 */
+        .flame-glow {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 4;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            0%, 100% { 
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+        
+        /* 蛋糕盘 */
+        .cake-plate {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+        
+        /* 蛋糕装饰文字 */
+        .cake-text {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: var(--gold-color);
+            white-space: nowrap;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         /* 翻转按钮 */
@@ -567,7 +755,7 @@
         <!-- 3D翻转卡片 -->
         <section class="flip-card-container animate-on-scroll">
             <div class="flip-card" id="flipCard">
-                <!-- 卡片正面：致二十岁的你 -->
+                <!-- 卡片正面：致二十岁的你 + 蛋糕 -->
                 <div class="flip-card-front">
                     <div class="card-glow"></div>
                     <h2 class="flip-card-title">致二十岁的你：</h2>
@@ -577,6 +765,27 @@
                         <p>愿你在探索世界的旅途中，既能欣赏沿途风景，也不忘内心方向；既有追逐梦想的勇气，也有接受不完美的从容。</p>
                         <p>二十岁的你，站在人生的新起点，前方有无限可能。愿你勇敢尝试，不畏失败；愿你保持本真，不忘初心；愿你被世界温柔以待，也温柔对待这个世界。</p>
                         <p>生日快乐，二十岁的郑晞澜。愿这一岁，成为你人生中最精彩的一章。</p>
+                    </div>
+                    
+                    <!-- 生日蛋糕 -->
+                    <div class="cake-container">
+                        <div class="birthday-cake">
+                            <div class="cake-plate"></div>
+                            <div class="cake-bottom"></div>
+                            <div class="cake-top"></div>
+                            <div class="cake-dots">
+                                <div class="cake-dot"></div>
+                                <div class="cake-dot"></div>
+                                <div class="cake-dot"></div>
+                                <div class="cake-dot"></div>
+                                <div class="cake-dot"></div>
+                                <div class="cake-dot"></div>
+                            </div>
+                            <div class="candle"></div>
+                            <div class="flame-glow"></div>
+                            <div class="flame"></div>
+                            <div class="cake-text">Happy 20th Birthday</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -817,33 +1026,6 @@
             flipCard.addEventListener('mouseleave', function() {
                 this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
             });
-            
-            // 自动调整卡片高度以适应内容
-            setTimeout(() => {
-                const flipCardContent = document.querySelectorAll('.flip-card-content');
-                let maxHeight = 0;
-                
-                flipCardContent.forEach(content => {
-                    if (content.scrollHeight > maxHeight) {
-                        maxHeight = content.scrollHeight;
-                    }
-                });
-                
-                // 如果内容高度超过容器，增加容器高度
-                if (maxHeight > 350) {
-                    const cardContainer = document.querySelector('.flip-card-container');
-                    const newHeight = 500 + (maxHeight - 350);
-                    cardContainer.style.height = `${newHeight}px`;
-                    
-                    // 调整响应式高度
-                    if (window.innerWidth <= 768) {
-                        cardContainer.style.height = `${newHeight + 50}px`;
-                    }
-                    if (window.innerWidth <= 480) {
-                        cardContainer.style.height = `${newHeight + 100}px`;
-                    }
-                }
-            }, 100);
         });
     </script>
 </body>
