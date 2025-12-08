@@ -611,6 +611,130 @@
             opacity: 1;
         }
         
+        /* 密码模态框 */
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .password-modal.active {
+            display: flex;
+        }
+        
+        .password-box {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            width: 90%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: modalFadeIn 0.5s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .password-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--gold-color);
+            margin-bottom: 20px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            letter-spacing: 1px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .password-input:focus {
+            border-color: var(--gold-color);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .password-hint {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .password-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .password-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 150px;
+        }
+        
+        .password-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .password-btn.submit {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+            color: var(--gold-color);
+        }
+        
+        .password-btn.submit:hover {
+            background: rgba(212, 175, 55, 0.3);
+        }
+        
+        .password-error {
+            color: var(--accent-color);
+            margin-top: 15px;
+            font-size: 0.9rem;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .password-error.show {
+            opacity: 1;
+        }
+        
         /* 签名区域 */
         .signature-section {
             text-align: center;
@@ -743,6 +867,20 @@
     <!-- 星星容器 -->
     <div class="stars-container" id="stars-container"></div>
     
+    <!-- 密码模态框 -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-box">
+            <h2 class="password-title">翻转密码验证</h2>
+            <p class="password-hint">请输入密码以查看卡片的另一面<br>密码提示：郑晞澜20岁生日快乐</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="请输入密码" autocomplete="off">
+            <div class="password-error" id="passwordError"></div>
+            <div class="password-buttons">
+                <button class="password-btn cancel" id="cancelBtn">取消</button>
+                <button class="password-btn submit" id="submitBtn">确认</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <!-- 标题区域 -->
         <section class="header-section">
@@ -764,7 +902,7 @@
                         <p>愿你的二十岁，如春日初绽的花朵，充满生机与希望；如夏日清晨的阳光，温暖而不炽热。</p>
                         <p>愿你在探索世界的旅途中，既能欣赏沿途风景，也不忘内心方向；既有追逐梦想的勇气，也有接受不完美的从容。</p>
                         <p>二十岁的你，站在人生的新起点，前方有无限可能。愿你勇敢尝试，不畏失败；愿你保持本真，不忘初心；愿你被世界温柔以待，也温柔对待这个世界。</p>
-                        <p>生日快乐，愿这一岁，成为你人生中最精彩的一章。</p>
+                        <p>生日快乐，二十岁的郑晞澜。愿这一岁，成为你人生中最精彩的一章。</p>
                     </div>
                     
                     <!-- 生日蛋糕 -->
@@ -798,9 +936,9 @@
                         <p>你知道用ai做这个我有多崩溃吗，我本来打算在背景里加一点星空做点缀的，但是那个ai像是没见过星星一样，做的非常难绷，所以在我尝试了3小时后我放弃了做星空。然后我又打算在背景里加点音乐，想加那个遗失的心跳，然后捣鼓了3小时发现它始终播放不了，最后我也没招了，就生成了现在这个版本了。</p>
                         <p>哎有些话我也不知道能不能说，就当悄悄话一起说了吧。我感觉你这人挺神奇的，和你说话不像和其他女生那样需要端着，简称就是想骂就骂一点不含糊，反而更自然了点。但是你让我最舒服的点在于，我不需要去猜你的情绪点在哪，你有火会说，会骂，但不是憋着藏着让我去猜，哎要是我会猜得到也不会到现在这样了。</p>
                         <p>其实我有时候也会想为什么能和你说这么多东西，或者说，为什么是你。或许是从你那句和我没有壁开始的吧。对于我而言，关系的确定需要明确的言语，如同情侣需要表白，夫妻需要婚礼一般，而你这句话对我而言和宣告了我是你好朋友？无疑了，其实当时挺震惊的，因为没有经历过（女生）。</p>
-                        <p>emmmm还有就是，有人问过我喜不喜欢你，前段时间其实我也想过这个问题。如实说，xkl离开后，你在我心里的位置逐渐取代了她，但对于喜不喜欢这一点，其实我也不懂，就很神奇。我对你确实没有对xkl的那种，额，追求感？你也知道我喜欢一个人的样子有多癫。但是对于朋友而言感觉我对你的占有欲过高了点？我也不知道算不算正常。不过有一说一，你倒是符合我目前对另一半的要求就是了。</p>
+                        <p>emmmm还有就是，有人问过我喜不喜欢你，前段时间其实我也想过这个问题。如实说，xkl离开后，你在我心里的位置逐渐取代了她，但对于喜不喜欢这一点，其实我也不懂，就很神奇。我对你确实没有对xkl的那种，额，追求感？你也知道我喜欢一个人的样子有多癫。但是对于朋友而言感觉我对你的占有欲过高了点？我也不知道算不算正常。但话又说回来了，就目前而言，或许会适配？（bushi）</p>
                         <p>这问题其实我也想挺久的了，看看小红书上面关于纯友谊的话题评论区总是两极分化，我也是越来越搞不懂了，现阶段我也只能定义成 重要的人 了。</p>
-                        <p>好了你就当我是喝了点强爽乱说话吧。毕竟是你说的没有壁，那我就想啥说啥了。（敢给别人看砍死你）</p>
+                        <p>好了你就当我是喝了点强爽乱说话吧。（敢给别人看砍死你）</p>
                         <p>总之生日快乐</p>
                     </div>
                 </div>
@@ -982,26 +1120,100 @@
             }
         }
         
-        // 翻转卡片功能
-        function initFlipCard() {
+        // 密码保护功能
+        function initPasswordProtection() {
             const flipCard = document.getElementById('flipCard');
             const flipButton = document.getElementById('flipButton');
+            const passwordModal = document.getElementById('passwordModal');
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordError = document.getElementById('passwordError');
+            const submitBtn = document.getElementById('submitBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
             
-            // 只允许点击按钮翻转卡片
+            // 正确密码
+            const correctPassword = "zxl20srkl";
+            
+            // 点击翻转按钮时，根据当前卡片状态决定是否需要密码
             flipButton.addEventListener('click', function(e) {
                 e.stopPropagation();
-                flipCard.classList.toggle('flipped');
-            });
-            
-            // 移除卡片点击翻转事件，只保留按钮点击翻转
-            // 不添加卡片点击事件，这样只有按钮可以翻转卡片
-            
-            // 添加键盘支持
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' || e.code === 'Enter') {
-                    flipCard.classList.toggle('flipped');
+                
+                // 检查卡片当前状态
+                const isFlipped = flipCard.classList.contains('flipped');
+                
+                if (isFlipped) {
+                    // 当前是背面，直接翻回正面（不需要密码）
+                    flipCard.classList.remove('flipped');
+                } else {
+                    // 当前是正面，需要密码验证
+                    passwordModal.classList.add('active');
+                    passwordInput.focus();
+                    passwordInput.value = '';
+                    passwordError.textContent = '';
+                    passwordError.classList.remove('show');
                 }
             });
+            
+            // 提交密码
+            function submitPassword() {
+                const enteredPassword = passwordInput.value.trim();
+                
+                if (enteredPassword === correctPassword) {
+                    // 密码正确，翻转卡片到背面
+                    flipCard.classList.add('flipped');
+                    passwordModal.classList.remove('active');
+                    passwordError.textContent = '';
+                    passwordError.classList.remove('show');
+                } else {
+                    // 密码错误，显示提示
+                    passwordError.textContent = '你猜密码是什么';
+                    passwordError.classList.add('show');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // 添加抖动动画
+                    passwordInput.style.animation = 'none';
+                    setTimeout(() => {
+                        passwordInput.style.animation = 'shake 0.5s ease';
+                    }, 10);
+                }
+            }
+            
+            // 提交按钮点击事件
+            submitBtn.addEventListener('click', submitPassword);
+            
+            // 取消按钮点击事件
+            cancelBtn.addEventListener('click', function() {
+                passwordModal.classList.remove('active');
+                passwordError.textContent = '';
+                passwordError.classList.remove('show');
+            });
+            
+            // 按回车键提交
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    submitPassword();
+                }
+            });
+            
+            // 点击模态框外部关闭
+            passwordModal.addEventListener('click', function(e) {
+                if (e.target === passwordModal) {
+                    passwordModal.classList.remove('active');
+                    passwordError.textContent = '';
+                    passwordError.classList.remove('show');
+                }
+            });
+            
+            // 添加抖动动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
         }
         
         // 页面加载完成后初始化
@@ -1010,7 +1222,7 @@
             createStars(); // 创建星星
             addFloatingElements();
             initScrollAnimations();
-            initFlipCard(); // 初始化翻转卡片
+            initPasswordProtection(); // 初始化密码保护功能
             
             // 添加卡片悬停效果
             const flipCard = document.getElementById('flipCard');
